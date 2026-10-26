@@ -213,32 +213,36 @@ const DEFAULT_SETTINGS = {
 };
 const COLORS = ['#e2673b','#3b82c4','#8e5bd0','#2f9e74','#d6457a','#c9921a'];
 const EMOJIS = ['🦊','🐼','🐸','🐙','🦄','🐝','🐧','🦉','🐢','🐱','🐶','🌵'];
+// 24 boss, ognuno col suo mese "a tema": A = anni pari, B = anni dispari.
+// Due mesi di fila non hanno mai lo stesso punto debole. Ogni boss torna ogni 2 anni.
 const BOSSES = [
-  {name:'Il Barone delle Briciole', emoji:'🐭', weak:'Cucina', taunt:'Ogni briciola è un mio suddito.'},
+  {name:'Il Barone delle Briciole', emoji:'🐭', weak:'Cucina', taunt:'Le briciole del panettone sono ovunque. Mie.'},
   {name:'La Regina del Calcare', emoji:'👑', weak:'Bagno', taunt:'Il mio regno è fatto di aloni bianchi.'},
-  {name:'Polverone il Grigio', emoji:'🌪️', weak:'Zona giorno e camera', taunt:'Non mi vedete, ma ci sono ovunque.'},
-  {name:'Ragnatella', emoji:'🕷️', weak:'Balconi', taunt:'La veranda è casa mia ormai.'},
-  {name:'Il Golem del Bucato', emoji:'🧦', weak:'Bucato', taunt:'Più mi lavate, più ricresco.'},
-  {name:'Mucillagine', emoji:'🦠', weak:'Bagno', taunt:'Le fughe delle piastrelle sono il mio parco giochi.'},
-  {name:'Lord Umido', emoji:'🍌', weak:'Cucina', taunt:'Il bidone dell’umido è il mio trono.'},
-  {name:'La Muffa Errante', emoji:'🍄', weak:'Bagno', taunt:'Caldo, umidità… adoro.'},
-  {name:'Il Kraken del Lavello', emoji:'🐙', weak:'Cucina', taunt:'Lasciate pure i piatti a mollo.'},
-  {name:'Il Fantasma dei Calzini', emoji:'👻', weak:'Bucato', taunt:'Un calzino spaiato alla volta.'},
-  {name:'Briciolosauro', emoji:'🦖', weak:'Zona giorno e camera', taunt:'Il divano è il mio territorio di caccia.'},
-  {name:'Il Grinch del Disordine', emoji:'🎄', weak:'Extra', taunt:'Niente feste in una casa sporca!'},
-  {name:'Capitan Pelucco', emoji:'🐈', weak:'Zona giorno e camera', taunt:'Ogni pelucco sul divano è una mia bandiera.'},
-  {name:'Sgrassatron 3000', emoji:'🤖', weak:'Cucina', taunt:'Unto rilevato. Resistenza inutile.'},
-  {name:'La Strega dello Stendino', emoji:'🧙', weak:'Bucato', taunt:'Stasera piove, e i panni sono fuori.'},
-  {name:'Conte Dracalcare', emoji:'🧛', weak:'Bagno', taunt:'Il vostro rubinetto sarà mio per l’eternità.'},
-  {name:'Il Piccione Imperatore', emoji:'🐦', weak:'Balconi', taunt:'La veranda è territorio aviario.'},
-  {name:'Mister Tupperware', emoji:'🥡', weak:'Extra', taunt:'Nessun coperchio troverà il suo contenitore.'},
+  {name:'Polverone il Grigio', emoji:'🌪️', weak:'Zona giorno e camera', taunt:'Pulizie di primavera? Vi aspetto.'},
+  {name:'Il Piccione Imperatore', emoji:'🐦', weak:'Balconi', taunt:'Primavera: la veranda è territorio aviario.'},
   {name:'Il Re delle Ditate', emoji:'🖐️', weak:'Zona giorno e camera', taunt:'Ho firmato ogni specchio di questa casa.'},
-  {name:'Sua Untuosità il Forno', emoji:'🍗', weak:'Cucina', taunt:'Quella crosta è lì da anni.'},
-  {name:'La Lavatrice Posseduta', emoji:'🌀', weak:'Bucato', taunt:'Gira, gira… e il calzino sparisce.'},
-  {name:'Il Mostro del Sotto-Letto', emoji:'👹', weak:'Zona giorno e camera', taunt:'Laggiù c’è una città di polvere.'},
-  {name:'Spazzolone Oscuro', emoji:'🦹', weak:'Bagno', taunt:'Il water ha scelto il lato oscuro.'},
-  {name:'Lo Yeti del Freezer', emoji:'🥶', weak:'Cucina', taunt:'Il ghiaccio avanza, un centimetro alla volta.'}
+  {name:'Il Golem del Bucato', emoji:'🧦', weak:'Bucato', taunt:'Cambio di stagione? Più mi lavate, più ricresco.'},
+  {name:'Lord Umido', emoji:'🍌', weak:'Cucina', taunt:'Luglio, 35 gradi, bidone dell’umido: il mio trono.'},
+  {name:'La Muffa Errante', emoji:'🍄', weak:'Bagno', taunt:'Caldo, umidità… adoro.'},
+  {name:'Il Kraken del Lavello', emoji:'🐙', weak:'Cucina', taunt:'Rientro dalle ferie? Lasciate pure i piatti a mollo.'},
+  {name:'Il Fantasma dei Calzini', emoji:'👻', weak:'Bucato', taunt:'Halloween: un calzino spaiato alla volta… buuu.'},
+  {name:'Spazzolone Oscuro', emoji:'🦹', weak:'Bagno', taunt:'Novembre è buio, e il water ha scelto il lato oscuro.'},
+  {name:'Il Grinch del Disordine', emoji:'🎄', weak:'Extra', taunt:'Niente Natale in una casa sporca!'},
+  {name:'Il Mostro del Sotto-Letto', emoji:'👹', weak:'Zona giorno e camera', taunt:'Fa freddo, restate a letto… sotto ci penso io.'},
+  {name:'Sua Untuosità il Forno', emoji:'🍗', weak:'Cucina', taunt:'Carnevale: frittelle ovunque, e la crosta resta a me.'},
+  {name:'La Strega dello Stendino', emoji:'🧙', weak:'Bucato', taunt:'Marzo pazzerello: i panni non si asciugano mai.'},
+  {name:'Capitan Pelucco', emoji:'🐈', weak:'Zona giorno e camera', taunt:'È primavera: stagione della muta!'},
+  {name:'Ragnatella', emoji:'🕷️', weak:'Balconi', taunt:'Maggio: la veranda è casa mia ormai.'},
+  {name:'Lo Yeti del Freezer', emoji:'🥶', weak:'Cucina', taunt:'Freezer pieno di ghiaccioli… e di ghiaccio.'},
+  {name:'La Lavatrice Posseduta', emoji:'🌀', weak:'Bucato', taunt:'Costumi, teli mare, asciugamani: gira, gira…'},
+  {name:'Mucillagine', emoji:'🦠', weak:'Bagno', taunt:'Agosto: le fughe delle piastrelle sono il mio parco giochi.'},
+  {name:'Briciolosauro', emoji:'🦖', weak:'Zona giorno e camera', taunt:'Settembre, si torna sul divano: territorio di caccia.'},
+  {name:'Conte Dracalcare', emoji:'🧛', weak:'Bagno', taunt:'Halloween: il vostro rubinetto sarà mio per l’eternità.'},
+  {name:'Sgrassatron 3000', emoji:'🤖', weak:'Cucina', taunt:'Stagione di stufati. Unto rilevato. Resistenza inutile.'},
+  {name:'Mister Tupperware', emoji:'🥡', weak:'Extra', taunt:'Avanzi delle feste: nessun coperchio troverà il suo contenitore.'}
 ];
+// indice del boss per mese: i primi 12 negli anni pari, gli altri 12 negli anni dispari
+const bossIndex = (y, m) => (y % 2 === 0 ? 0 : 12) + (m - 1);
 const HOUSE_LEVELS = [[85,'Splendente','✨'],[70,'Pulita','🌿'],[55,'Vissuta','🛋️'],[40,'Disordinata','🧺'],[0,'Caos','🌋']];
 const SEED = [
   ['Cucina', [
@@ -486,7 +490,7 @@ function taskState(t, now = Date.now()){
   const r = t.lastDoneAt == null ? 1 : effElapsed(t.lastDoneAt, now) / span;
   const dueAt = t.lastDoneAt == null ? now : dueFrom(t.lastDoneAt, span);
   let mult = 1, note = '';
-  if (r < set.earlyThreshold && (dueAt-now)/DAY > 2){ mult = set.earlyMult; note = `fatta da poco: vale ${Math.round(set.earlyMult*100)}%`; }
+  if (!t.noEarlyMalus && r < set.earlyThreshold && (dueAt-now)/DAY > 2){ mult = set.earlyMult; note = `fatta da poco: vale ${Math.round(set.earlyMult*100)}%`; }
   else if (r > 1){ const b = Math.min(set.overdueMaxBonus, (r-1)*set.overdueMaxBonus); mult = 1+b; note = `bonus ritardo +${Math.round(b*100)}%`; }
   // pulizia: 100% appena fatta, 50% alla scadenza, 0% dopo un periodo intero di ritardo
   const health = Math.max(0, 1 - r/2);
@@ -523,7 +527,7 @@ function monthData(key){
   return {comps, scores, counts, together, damage};
 }
 function expectedMonthly(){ return activeTasks().filter(t => t.freqDays).reduce((s,t) => s + t.points*30/t.freqDays, 0); }
-function bossOf(key){ const [y,m] = key.split('-').map(Number); return BOSSES[((y*12 + m-1)*7) % BOSSES.length]; }
+function bossOf(key){ const [y,m] = key.split('-').map(Number); return BOSSES[bossIndex(y, m)]; }
 function bossInfo(key){
   const b = bossOf(key);
   const weak = categories().includes(b.weak) ? b.weak : null;
@@ -645,12 +649,23 @@ function seedIfNeeded(){
   for (const [cat, items] of SEED) for (const [name, freq, pts] of items){
     // partenza: ogni attività risulta fatta metà periodo fa (arrotondato per difetto)
     ops.push({type:'set', col:'tasks', id:slug(name), data:{name, category:cat, freqDays:freq, points:pts, active:true, order:order++,
-      lastDoneAt: freq ? startLast(freq, now) : null, lastDoneBy:null, custom:{}}});
+      lastDoneAt: freq ? startLast(freq, now) : null, lastDoneBy:null, custom:{}, noEarlyMalus: NO_MALUS.includes(slug(name))}});
   }
-  ops.push({type:'set', col:'config', id:'main', data:{seeded:true, startV2:true, startedAt:now, settings:DEFAULT_SETTINGS, customFields:[], pauses:[]}, merge:true});
+  ops.push({type:'set', col:'config', id:'main', data:{seeded:true, startV2:true, malusV3:true, startedAt:now, settings:DEFAULT_SETTINGS, customFields:[], pauses:[]}, merge:true});
   store.commit(ops).catch(err => { S._seeding = false; toast('⚠️ '+err.message); });
 }
 /* per i database creati con la prima versione */
+// attività che vanno fatte quando servono: niente penalità se fatte in anticipo
+const NO_MALUS = ['caricare-e-far-partire-lavastoviglie','scaricare-lavastoviglie','avviare-la-lavatrice','stendere','ritirare-e-piegare',
+  'meal-prep','cucinare-pasto-principale','buttare-umido','buttare-indifferenziata','buttare-carta','buttare-vetro','buttare-plastica',
+  'spesa-frutta-e-verdura','annaffiare-piante','svuotare-il-cestino','cambiare-gli-asciugamani'];
+function migrateMalus(){
+  if (!(S.server.config && S.server.tasks) || !S.config?.seeded || S.config?.malusV3 || S._malus) return;
+  S._malus = true;
+  const ops = S.tasks.filter(t => NO_MALUS.includes(t.id)).map(t => ({type:'set', col:'tasks', id:t.id, data:{noEarlyMalus:true}, merge:true}));
+  ops.push({type:'set', col:'config', id:'main', data:{malusV3:true}, merge:true});
+  store.commit(ops).catch(() => { S._malus = false; });
+}
 function upgradeIfNeeded(){
   if (!(S.server.config && S.server.tasks && S.server.completions) || !S.config?.seeded || S.config?.startV2 || S._upgrading) return;
   S._upgrading = true;
@@ -1267,7 +1282,8 @@ function editTask(id){
       ${customFields().map(cf => `<label>${esc(cf.label)}</label>${cf.type==='boolean'
         ? `<div class="switch"><span class="muted tiny">sì / no</span><input type="checkbox" name="cf_${esc(cf.key)}" ${t.custom?.[cf.key]?'checked':''}></div>`
         : `<input name="cf_${esc(cf.key)}" type="${cf.type==='number'?'number':'text'}" step="any" value="${esc(t.custom?.[cf.key] ?? '')}">`}`).join('')}
-      <div class="switch mt"><span><b>Attiva</b> <span class="tiny muted">(se spenta non compare e non conta)</span></span><input type="checkbox" name="active" ${t.active!==false?'checked':''}></div>
+      <div class="switch mt"><span><b>Nessuna penalità se fatta in anticipo</b> <span class="tiny muted">(per le cose che vanno fatte quando servono)</span></span><input type="checkbox" name="noEarlyMalus" ${t.noEarlyMalus?'checked':''}></div>
+      <div class="switch"><span><b>Attiva</b> <span class="tiny muted">(se spenta non compare e non conta)</span></span><input type="checkbox" name="active" ${t.active!==false?'checked':''}></div>
       <button class="btn primary block mt">Salva</button>
       ${id ? `<button type="button" class="btn danger block mt" data-act="askdeltask" data-id="${esc(id)}">Elimina attività</button>` : ''}
     </form>`);
@@ -1473,7 +1489,7 @@ document.addEventListener('submit', e => {
     let last = old.lastDoneAt ?? null;
     if (v.last){ const d = new Date(v.last+'T12:00:00').getTime(); if (!old.lastDoneAt || dayStart(old.lastDoneAt) !== dayStart(d)) last = d; } else last = null;
     const data = {...old, name:v.name.trim(), category:v.category.trim(), freqDays: v.fu==='none' ? null : Math.max(1, Math.round(+v.fn*mul)),
-      points:+v.points, active:!!f.elements.active.checked, custom, lastDoneAt:last, order: old.order ?? S.tasks.length};
+      points:+v.points, active:!!f.elements.active.checked, noEarlyMalus:!!f.elements.noEarlyMalus.checked, custom, lastDoneAt:last, order: old.order ?? S.tasks.length};
     delete data.id;
     store.commit([{type:'set', col:'tasks', id, data}]).catch(err => toast('⚠️ '+err.message));
     closeModal(); toast('Salvata ✅');
@@ -1492,7 +1508,7 @@ window.addEventListener('hashchange', () => { const t = location.hash.slice(1); 
 /* ---------------- avvio ---------------- */
 function afterData(){
   S._dataSig = (S._dataSig||0) + 1;
-  seedIfNeeded(); upgradeIfNeeded(); archiveIfNeeded(); snapshotDaily(); checkUnlocks();
+  seedIfNeeded(); upgradeIfNeeded(); migrateMalus(); archiveIfNeeded(); snapshotDaily(); checkUnlocks();
 }
 function startSession(u){
   if (unsub) { unsub(); unsub = null; }
