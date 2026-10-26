@@ -1,5 +1,5 @@
 // Service worker minimo: rete prima, cache come riserva (l'app si apre anche offline)
-const C = 'casa-pulita-v1';
+const C = 'casa-ciompi-v2';
 self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(C).then(c => c.addAll(['./', 'index.html', 'manifest.webmanifest', 'icon.svg']))); });
 self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
 self.addEventListener('fetch', e => {

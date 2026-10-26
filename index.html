@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Casa Pulita</title>
+<title>Casa Ciompi</title>
 <meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1916" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
@@ -12,31 +12,31 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Casa Pulita">
+<meta name="apple-mobile-web-app-title" content="Casa Ciompi">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#f6f1e7; --card:#fffdf8; --card2:#f1eadd; --ink:#2b2622; --muted:#7a6f66; --line:#e6dccb;
-  --accent:#e2673b; --accent-ink:#fff; --good:#3f9b6b; --warn:#d99a1e; --bad:#d2493c; --boss:#6d3fc0;
+  --accent:#e2673b; --accent-ink:#fff; --good:#3f9b6b; --warn:#d99a1e; --bad:#d2493c; --boss:#6d3fc0; --sky:#3b82c4;
   --shadow:0 1px 0 rgba(60,40,20,.04), 0 6px 18px -10px rgba(60,40,20,.25);
-  --r:18px;
+  --r:18px; --head:Fredoka,Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root{ --bg:#1c1916; --card:#26221e; --card2:#2f2a25; --ink:#f2ebe1; --muted:#a99d90; --line:#3a342e;
-    --accent:#ef7a4f; --good:#55b583; --warn:#e5ac38; --bad:#e2665a; --boss:#a27ae8; --shadow:0 6px 18px -10px rgba(0,0,0,.6); }
+    --accent:#ef7a4f; --good:#55b583; --warn:#e5ac38; --bad:#e2665a; --boss:#a27ae8; --sky:#5b9fdc; --shadow:0 6px 18px -10px rgba(0,0,0,.6); }
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;-webkit-tap-highlight-color:transparent}
 body{min-height:100vh;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
-h1,h2,h3,.num{font-family:Fredoka,Nunito,system-ui,sans-serif;font-weight:600;margin:0}
+h1,h2,h3,.num{font-family:var(--head);font-weight:600;margin:0}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 input,select,textarea{font:inherit;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;width:100%}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
 label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:12px 0 5px}
 .wrap{max-width:560px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 16px 16px}
-.top{display:flex;align-items:center;justify-content:space-between;margin:4px 0 14px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 14px}
 .top h1{font-size:26px}
 .sub{color:var(--muted);font-size:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
@@ -49,27 +49,26 @@ label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:12p
 .pill.soon{background:color-mix(in srgb,var(--warn) 18%,transparent);color:color-mix(in srgb,var(--warn) 80%,var(--ink))}
 .pill.ok{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
 .pill.weak{background:color-mix(in srgb,var(--boss) 15%,transparent);color:var(--boss)}
+.pill.pause{background:color-mix(in srgb,var(--sky) 15%,transparent);color:var(--sky)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:14px;font-weight:800;background:var(--card2);border:1px solid var(--line)}
 .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent}
 .btn.danger{color:var(--bad)}
 .btn.block{width:100%}
 .btn.small{padding:7px 11px;font-size:14px;border-radius:11px}
 .btn:active{transform:scale(.98)}
+.btn[disabled]{opacity:.4;pointer-events:none}
 .muted{color:var(--muted)}
 .tiny{font-size:12px}
 .mt{margin-top:12px}
-.hidden{display:none!important}
 
-/* nav */
-nav.tabs{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:center;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:20}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:center;padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:20}
 nav.tabs .in{display:flex;max-width:560px;width:100%}
-nav.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;font-size:11px;font-weight:800;color:var(--muted);border-radius:12px}
+nav.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;font-size:11px;font-weight:800;color:var(--muted);border-radius:12px;position:relative}
 nav.tabs button .ic{font-size:22px;line-height:1;filter:grayscale(1);opacity:.7}
 nav.tabs button.on{color:var(--accent)}
 nav.tabs button.on .ic{filter:none;opacity:1}
-nav.tabs .badge{position:absolute;margin-left:22px;margin-top:-4px;background:var(--bad);color:#fff;font-size:10px;border-radius:99px;padding:1px 5px}
+nav.tabs .badge{position:absolute;left:calc(50% + 6px);top:0;background:var(--bad);color:#fff;font-size:10px;border-radius:99px;padding:1px 5px}
 
-/* house */
 .house{display:flex;gap:16px;align-items:center}
 .gauge{position:relative;width:132px;flex:none}
 .gauge svg{display:block;width:100%}
@@ -77,12 +76,10 @@ nav.tabs .badge{position:absolute;margin-left:22px;margin-top:-4px;background:va
 .gauge .val .num{font-size:30px;line-height:1}
 .catbars{flex:1;display:grid;gap:7px;min-width:0}
 .catbar{font-size:12px;font-weight:700}
-.catbar .lbl{display:flex;justify-content:space-between;color:var(--muted)}
+.catbar .lbl{display:flex;justify-content:space-between;gap:6px;color:var(--muted)}
 .bar{height:7px;border-radius:9px;background:var(--card2);overflow:hidden;margin-top:3px}
 .bar>i{display:block;height:100%;border-radius:9px}
 
-/* boss */
-.boss{position:relative;overflow:hidden}
 .boss .face{font-size:54px;line-height:1;filter:drop-shadow(0 4px 6px rgba(0,0,0,.18))}
 .boss.dead .face{filter:grayscale(1);opacity:.55;transform:rotate(-12deg)}
 .hp{height:16px;border-radius:10px;background:var(--card2);overflow:hidden;margin:10px 0 6px;border:1px solid var(--line)}
@@ -90,19 +87,17 @@ nav.tabs .badge{position:absolute;margin-left:22px;margin-top:-4px;background:va
 .taunt{font-style:italic;font-size:14px;color:var(--muted);margin-top:2px}
 .pace{font-size:13px;font-weight:700;margin-top:6px}
 
-/* scoreboard */
 .duel{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;text-align:center}
-.pl .av{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:30px;margin:0 auto 6px;position:relative}
-.pl .crown{position:absolute;top:-16px;left:50%;transform:translateX(-50%) rotate(-8deg);font-size:22px}
+.pl .av{margin:0 auto 6px}
 .pl .name{font-weight:800;font-size:14px}
 .pl .num{font-size:28px}
-.vs{font-family:Fredoka,Nunito,system-ui,sans-serif;color:var(--muted);font-size:14px}
+.av{border-radius:50%;display:grid;place-items:center;flex:none}
+.vs{font-family:var(--head);color:var(--muted);font-size:14px}
 .split{height:10px;border-radius:9px;overflow:hidden;display:flex;margin-top:12px;background:var(--card2)}
 .split i{display:block;height:100%}
 
-/* tasks */
-.sec{font-family:Fredoka,Nunito,system-ui,sans-serif;font-weight:600;font-size:15px;margin:18px 4px 8px;display:flex;align-items:center;gap:8px}
-.sec .c{font-family:Nunito;font-size:12px;color:var(--muted);font-weight:800}
+.sec{font-family:var(--head);font-weight:600;font-size:15px;margin:18px 4px 8px;display:flex;align-items:center;gap:8px}
+.sec .c{font-family:Nunito,system-ui,sans-serif;font-size:12px;color:var(--muted);font-weight:800}
 .task{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:8px;width:100%;text-align:left;box-shadow:var(--shadow)}
 .task .dot{width:10px;height:10px;border-radius:50%;flex:none}
 .task .nm{font-weight:800;font-size:15px;line-height:1.25}
@@ -110,19 +105,17 @@ nav.tabs .badge{position:absolute;margin-left:22px;margin-top:-4px;background:va
 .task .pts{text-align:right;flex:none}
 .task .pts .num{font-size:20px}
 .task .pts small{display:block;font-size:11px;color:var(--muted);font-weight:700}
-.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none;margin:0 -16px;padding-left:16px;padding-right:16px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 16px 6px;scrollbar-width:none;margin:0 -16px}
 .chips::-webkit-scrollbar{display:none}
 .chip{padding:7px 12px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-weight:800;font-size:13px;white-space:nowrap}
 .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
-/* log */
 .log{display:flex;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
 .log:first-child{border-top:0}
-.log .em{font-size:20px;width:28px;text-align:center}
+.log .em{font-size:20px;min-width:28px;text-align:center}
 .log .t{font-weight:700;font-size:14px}
 .log .d{font-size:12px;color:var(--muted)}
 
-/* modal */
 .scrim{position:fixed;inset:0;background:rgba(20,14,8,.45);z-index:50;display:flex;align-items:flex-end;justify-content:center;animation:fade .15s}
 .sheet{background:var(--bg);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:24px 24px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom));animation:up .2s ease-out}
 .sheet h2{font-size:22px}
@@ -130,39 +123,72 @@ nav.tabs .badge{position:absolute;margin-left:22px;margin-top:-4px;background:va
 .who{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .who .btn{flex-direction:column;padding:14px 8px;gap:4px}
 .who .btn .e{font-size:28px}
-.who .both{grid-column:1/-1;flex-direction:row}
-.kv{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px}
-.kv b{font-weight:800}
+.who .wide{grid-column:1/-1;flex-direction:row}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.kv b{font-weight:800;text-align:right}
 .swatches{display:flex;gap:8px;flex-wrap:wrap}
 .swatches button{width:36px;height:36px;border-radius:50%;border:3px solid transparent;font-size:20px;display:grid;place-items:center;background:var(--card2)}
 .swatches button.on{border-color:var(--ink)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg label{margin:0;flex:1;min-width:30%}
+.seg input{display:none}
+.seg span{display:block;text-align:center;padding:10px 6px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-weight:800;font-size:14px}
+.seg input:checked+span{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--card))}
+.check{display:flex;align-items:center;gap:10px;padding:9px 2px;border-top:1px solid var(--line);font-weight:700;font-size:14px;margin:0;color:var(--ink)}
+.check input{width:20px;height:20px;flex:none;accent-color:var(--accent)}
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:16px;font-weight:800;z-index:60;box-shadow:0 10px 30px -10px rgba(0,0,0,.5);animation:pop .25s;max-width:92vw;text-align:center}
-.burst{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.burst{position:fixed;inset:0;pointer-events:none;z-index:90;overflow:hidden}
 .burst span{position:absolute;font-size:26px;animation:fly 1.4s ease-out forwards}
+.burst i{position:absolute;width:9px;height:14px;border-radius:2px;animation:fall 2.6s ease-in forwards}
 .login{max-width:400px;margin:8vh auto 0;padding:16px}
 .logo{font-size:64px;text-align:center}
 .center{text-align:center}
 textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;min-height:50vh;white-space:pre}
 .fame{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
-.fame:first-of-type{border-top:0}
-.switch{display:flex;align-items:center;justify-content:space-between;padding:6px 0}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0}
 .switch input{width:auto;transform:scale(1.3)}
+.banner-pause{display:flex;gap:10px;align-items:center;background:color-mix(in srgb,var(--sky) 14%,var(--card));border:1px solid color-mix(in srgb,var(--sky) 35%,transparent);border-radius:16px;padding:12px 14px;margin-bottom:14px;font-weight:700;font-size:14px}
+
+.ach{display:flex;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}
+.ach:first-child{border-top:0}
+.ach .nm{font-weight:800;font-size:15px;line-height:1.2}
+.ach.locked .nm{color:var(--muted)}
+.ach .ds{font-size:12px;color:var(--muted);margin-top:2px}
+.ach .pg{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:11px;font-weight:800;color:var(--muted)}
+.ach .pg .bar{flex:1;margin:0;height:6px}
+.ach .bdg{flex:none}
+.ach.locked .bdg{filter:grayscale(1);opacity:.4}
+.ach .when{font-size:11px;color:var(--good);font-weight:800;margin-top:4px}
+.grp{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left}
+.grp h2{margin:0}
+.dice{font-size:44px;display:inline-block}
+.slot{font-family:var(--head);font-size:22px;font-weight:600;min-height:60px;display:grid;place-items:center;text-align:center;padding:0 10px}
+
+.prize{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,rgba(255,200,90,.35),rgba(20,14,8,.7));animation:fade .25s;padding:20px}
+.prize .box{position:relative;background:var(--card);border-radius:28px;padding:28px 22px 22px;max-width:360px;width:100%;text-align:center;box-shadow:0 30px 80px -20px rgba(0,0,0,.6);animation:zoomin .5s cubic-bezier(.2,1.4,.4,1)}
+.prize .x{position:absolute;top:10px;right:12px;font-size:22px;color:var(--muted);padding:6px}
+.prize .rays{position:relative;width:170px;height:170px;margin:0 auto 6px;display:grid;place-items:center}
+.prize .rays::before{content:"";position:absolute;inset:-20px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,196,60,.45) 0 10deg,transparent 10deg 24deg);animation:spin 9s linear infinite;mask:radial-gradient(circle,#000 35%,transparent 70%);-webkit-mask:radial-gradient(circle,#000 35%,transparent 70%)}
+.prize .rays svg{position:relative;animation:wobble 1.2s ease-in-out .4s}
+.prize .k{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.prize h2{font-size:24px;margin:6px 0 6px}
 @keyframes fade{from{opacity:0}}
 @keyframes up{from{transform:translateY(40px);opacity:.4}}
 @keyframes pop{from{transform:translate(-50%,10px) scale(.9);opacity:0}}
 @keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot));opacity:0}}
+@keyframes fall{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(var(--dx),110vh) rotate(var(--rot))}}
+@keyframes zoomin{from{transform:scale(.4);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes wobble{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-10deg) scale(1.08)}50%{transform:rotate(8deg) scale(1.12)}75%{transform:rotate(-4deg) scale(1.04)}}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <div id="modal"></div>
+<div id="prize"></div>
 <script type="module">
 /* ================================================================
-   CONFIGURAZIONE
-   Incolla qui sotto la configurazione della tua app web Firebase
-   (Console Firebase → Impostazioni progetto → Le tue app → Config).
-   Se resta null l'app parte in modalità DEMO (dati solo su questo
-   dispositivo).
+   CONFIGURAZIONE FIREBASE (se null l'app parte in modalità DEMO)
    ================================================================ */
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCZ92Y0sQbnD7TDeo4vbXBYCsTDUAgOVg0",
@@ -173,16 +199,17 @@ const FIREBASE_CONFIG = {
   appId: "1:729622210179:web:7a6f4c7038602e27a69db6"
 };
 const FIREBASE_VERSION = '10.12.2';
+const APP_NAME = 'Casa Ciompi';
 
 /* ---------------- costanti di gioco ---------------- */
 const DAY = 86400000;
 const DEFAULT_SETTINGS = {
   coopShare: 0.6,        // fatta insieme: ognuno prende il 60% dei punti
-  earlyThreshold: 0.5,   // prima di metà periodo = "troppo presto"
-  earlyMult: 0.5,        // ...e vale la metà
-  overdueMaxBonus: 0.5,  // bonus ritardo: fino a +50% (raggiunto dopo un periodo intero di ritardo)
+  earlyThreshold: 0.4,   // prima del 40% del periodo = "troppo presto"...
+  earlyMult: 0.5,        // ...e vale la metà (solo se mancano più di 2 giorni alla scadenza)
+  overdueMaxBonus: 0.5,  // bonus ritardo fino a +50% (dopo un periodo intero di ritardo)
   bossDifficulty: 0.8,   // vita del boss = 80% dei punti "attesi" nel mese
-  weaknessMult: 1.5      // danno x1.5 se la stanza è il punto debole del boss
+  weaknessMult: 1.5      // danno x1.5 sulla stanza debole del boss
 };
 const COLORS = ['#e2673b','#3b82c4','#8e5bd0','#2f9e74','#d6457a','#c9921a'];
 const EMOJIS = ['🦊','🐼','🐸','🐙','🦄','🐝','🐧','🦉','🐢','🐱','🐶','🌵'];
@@ -194,16 +221,25 @@ const BOSSES = [
   {name:'Il Golem del Bucato', emoji:'🧦', weak:'Bucato', taunt:'Più mi lavate, più ricresco.'},
   {name:'Mucillagine', emoji:'🦠', weak:'Bagno', taunt:'Le fughe delle piastrelle sono il mio parco giochi.'},
   {name:'Lord Umido', emoji:'🍌', weak:'Cucina', taunt:'Il bidone dell’umido è il mio trono.'},
-  {name:'La Muffa Errante', emoji:'🍄', weak:'Bagno', taunt:'Agosto, caldo, umidità… adoro.'},
+  {name:'La Muffa Errante', emoji:'🍄', weak:'Bagno', taunt:'Caldo, umidità… adoro.'},
   {name:'Il Kraken del Lavello', emoji:'🐙', weak:'Cucina', taunt:'Lasciate pure i piatti a mollo.'},
   {name:'Il Fantasma dei Calzini', emoji:'👻', weak:'Bucato', taunt:'Un calzino spaiato alla volta.'},
   {name:'Briciolosauro', emoji:'🦖', weak:'Zona giorno e camera', taunt:'Il divano è il mio territorio di caccia.'},
-  {name:'Il Grinch del Disordine', emoji:'🎄', weak:'Extra', taunt:'Niente Natale in una casa sporca!'}
+  {name:'Il Grinch del Disordine', emoji:'🎄', weak:'Extra', taunt:'Niente feste in una casa sporca!'},
+  {name:'Capitan Pelucco', emoji:'🐈', weak:'Zona giorno e camera', taunt:'Ogni pelucco sul divano è una mia bandiera.'},
+  {name:'Sgrassatron 3000', emoji:'🤖', weak:'Cucina', taunt:'Unto rilevato. Resistenza inutile.'},
+  {name:'La Strega dello Stendino', emoji:'🧙', weak:'Bucato', taunt:'Stasera piove, e i panni sono fuori.'},
+  {name:'Conte Dracalcare', emoji:'🧛', weak:'Bagno', taunt:'Il vostro rubinetto sarà mio per l’eternità.'},
+  {name:'Il Piccione Imperatore', emoji:'🐦', weak:'Balconi', taunt:'La veranda è territorio aviario.'},
+  {name:'Mister Tupperware', emoji:'🥡', weak:'Extra', taunt:'Nessun coperchio troverà il suo contenitore.'},
+  {name:'Il Re delle Ditate', emoji:'🖐️', weak:'Zona giorno e camera', taunt:'Ho firmato ogni specchio di questa casa.'},
+  {name:'Sua Untuosità il Forno', emoji:'🍗', weak:'Cucina', taunt:'Quella crosta è lì da anni.'},
+  {name:'La Lavatrice Posseduta', emoji:'🌀', weak:'Bucato', taunt:'Gira, gira… e il calzino sparisce.'},
+  {name:'Il Mostro del Sotto-Letto', emoji:'👹', weak:'Zona giorno e camera', taunt:'Laggiù c’è una città di polvere.'},
+  {name:'Spazzolone Oscuro', emoji:'🦹', weak:'Bagno', taunt:'Il water ha scelto il lato oscuro.'},
+  {name:'Lo Yeti del Freezer', emoji:'🥶', weak:'Cucina', taunt:'Il ghiaccio avanza, un centimetro alla volta.'}
 ];
-const HOUSE_LEVELS = [
-  [90,'Splendente','✨'],[75,'Pulita','🌿'],[55,'Vissuta','🛋️'],[35,'Disordinata','🧺'],[0,'Caos','🌋']
-];
-/* lista iniziale (dal vostro Excel). Frequenza in giorni, null = senza scadenza */
+const HOUSE_LEVELS = [[85,'Splendente','✨'],[70,'Pulita','🌿'],[55,'Vissuta','🛋️'],[40,'Disordinata','🧺'],[0,'Caos','🌋']];
 const SEED = [
   ['Cucina', [
     ['Caricare e far partire lavastoviglie',2,1],['Scaricare lavastoviglie',2,1],['Piano di lavoro e fornelli',7,2],
@@ -223,24 +259,94 @@ const SEED = [
   ['Extra', [['Cucinare pasto principale',null,2],['Meal prep',14,3],['Annaffiare piante',14,0.5],['Spesa frutta e verdura',7,2]]]
 ];
 
+/* ---------------- PREMI: nomi ---------------- */
+const TIERS = ['Bronzo','Argento','Oro','Diamante','Leggenda'];
+const TIER_COL = [['#e0a06a','#9a5f2e'],['#dfe5ec','#8995a3'],['#ffd75e','#c48a00'],['#8fe3ff','#2389b5'],['#d7a6ff','#7a3fd1']];
+const TASK_ACH = {
+  'caricare-e-far-partire-lavastoviglie':['🍽️','Il Tetris dei Piatti','Ingegnere del Cestello','Sommo Incastratore','Leggenda della Pastiglia'],
+  'scaricare-lavastoviglie':['🥣','Svuota-Tutto','Re dei Cassetti','Mani Calde di Piatti','Il Grande Scaricatore di Porto'],
+  'piano-di-lavoro-e-fornelli':['🔥','Fornello Lucido','Cavaliere del Piano Cottura','Sgrassatore Seriale','Il Signore dei Fuochi'],
+  'buttare-umido':['🍌','Bucce in Fuga','Amico del Compost','Lord dell’Organico','Il Moscerino Non Passa'],
+  'buttare-indifferenziata':['🗑️','Sacco Nero Pro','Tutto e Niente','Il Mistero del Secco','Lo Smaltitore Implacabile'],
+  'buttare-carta':['📦','Cartonato','Origamista del Riciclo','Distruttore di Scatoloni','Il Re della Cellulosa'],
+  'buttare-vetro':['🍾','Tintinnio Notturno','Campana Felice','Il Vetraio Furioso','Maestro del Crash Controllato'],
+  'buttare-plastica':['🧴','Bottiglia Schiacciata','Plastic Fantastic','Il Compattatore Umano','Salvatore dei Delfini'],
+  'lavello-e-scolapiatti-anticalcare':['🚰','Lavello a Specchio','Ammazza-Calcare','Il Brillantinatore','Sua Lucidità il Lavello'],
+  'microonde':['📡','Esplosione di Sugo Domata','Ding! Pulito','Il Radiante','Signore delle Microonde'],
+  'frigo-scaduti-e-ripiani':['🧊','Archeologo dello Yogurt','Cacciatore di Scaduti','Il Custode del Freddo','Frigo Zen Master'],
+  'forno':['🥧','Incrostazione Vinta','Pirolisi Umana','Il Domatore del Forno','Il Forno Più Pulito d’Italia'],
+  'ante-dei-pensili':['🚪','Ante Senza Ditate','Spolveratore Verticale','Il Pensilista','Guardiano delle Ante'],
+  'pulizia-sensori-e-dreame':['🤖','Babysitter del Robot','Meccanico del Dreame','Dreame Whisperer','Il Padre dei Robot'],
+  'sbrinare-freezer-e-controllo':['❄️','Rompighiaccio','Era Glaciale Finita','Lo Sbrinatore Polare','Elsa Ha Paura di Te'],
+  'pulizia-pavimenti-con-acqua-dreame':['💧','Pilota del Lavapavimenti','Comandante Dreame','Ammiraglio dei Pavimenti','Il Robot Sei Tu'],
+  'lavare-i-pavimenti-con-vaporetto-o-mocio':['🚂','Mocio Cadetto','Locomotiva a Vapore','Il Vaporizzatore','Pavimento Dove Specchiarsi'],
+  'pulizia-ripiano-cucina':['🧽','Ripiano Tirato a Lucido','Briciole Zero','Il Lucidatore','Superficie Sacra'],
+  'pulizia-scrivania-e-como':['🗄️','Scrivania Ritrovata','Comò Comodo','L’Ordinatore Folle','Marie Kondo Ti Invidia'],
+  'cambiare-le-lenzuola':['🛏️','Lenzuola Profumate','Angoli Perfetti','Il Mago del Piumone','Hotel a Cinque Stelle'],
+  'lavare-federa-divano-e-cuscini':['🛋️','Cuscino Rinato','Lavanderia del Divano','Il Salvatore del Sofà','Divano Nuovo di Pacca'],
+  'rimettere-federa-divano-e-cuscini':['🧩','Infilatore di Federe','Lotta con la Cerniera','Il Vestitore di Divani','Campione Olimpico di Fodera'],
+  'vetri-delle-finestre-cucina':['🪟','Vetro Invisibile','Uccellino Confuso','Il Trasparente','Spirito del Vetril'],
+  'vetri-delle-finestre-camera':['🌤️','Vista Panoramica','Alone Addio','Il Lavavetri Notturno','Luce Divina in Camera'],
+  'specchio-ingresso':['🪞','Specchio delle Mie Brame','Riflesso Perfetto','Il Narciso','Più Bello del Reame'],
+  'specchio-armadio':['👗','Outfit Riflesso','L’Armadio Brilla','Il Selfie Perfetto','Specchio Senza Peccato'],
+  'water':['🚽','Coraggio da Leoni','Spazzolone d’Oro','Il Trono è Salvo','Guardiano della Ceramica'],
+  'bidet':['🧼','Bidet Bello','Il Gemello del Water','Igiene all’Italiana','Bidettologo Laureato'],
+  'doccia-o-vasca':['🚿','Cantante sotto la Doccia','Box Doccia di Cristallo','Il Nemico della Muffa','Spa Domestica'],
+  'lavandino-e-specchio':['🪥','Dentifricio Rimosso','Lavandino Splendente','Il Brillante del Bagno','Riflesso Senza Schizzi'],
+  'cambiare-gli-asciugamani':['🛁','Asciugamano Fresco','Morbidezza Garantita','Il Cambiatore Seriale','Asciugamani da Hotel'],
+  'svuotare-il-cestino':['🪣','Cestino Vuoto','Svuota e Vai','Il Netturbino del Bagno','Cestino Mai Pieno'],
+  'swiffer-bagno':['🪶','Piumino Ninja','Polvere Catturata','Swiffer Samurai','Il Catturapolvere Leggendario'],
+  'vaporetto-o-mocio-bagno':['♨️','Nebbia in Bagno','Vapore Sterminatore','Il Bagno Sterilizzato','Sala Operatoria'],
+  'lavare-entrambi-gli-accappatoi':['👘','Accappatoio Coccoloso','Doppio Spugnone','Il Re degli Accappatoi','Morbidezza di Coppia'],
+  'avviare-la-lavatrice':['🫧','Centrifuga Avviata','Dosatore di Detersivo','Il Programmatore a 40°','Signore dei Cicli'],
+  'stendere':['🧷','Mollette in Posizione','Equilibrista dello Stendino','Il Tetris dei Calzini','Maestro del Filo'],
+  'ritirare-e-piegare':['👕','Piega Approssimativa','Pila Ordinata','Il Piegatore Origami','Cassetto Perfetto'],
+  'pavimento-della-veranda':['🌿','Veranda Pulita','Spazzino Panoramico','Il Custode della Veranda','Veranda da Rivista'],
+  'togliere-ragnatele-veranda':['🕸️','Acchiappa-Ragni','Sfratto Esecutivo','Lo Spider-Sloggiatore','Nemico Pubblico degli Aracnidi'],
+  'cucinare-pasto-principale':['🍝','Primo Piatto','Chef di Casa','Stella Michelin Domestica','Masterchef del Divano'],
+  'meal-prep':['🍱','Schiscetta Pronta','Organizzatore di Tupperware','Il Pianificatore Culinario','Re del Meal Prep'],
+  'annaffiare-piante':['🪴','Pollice Verde','Amico delle Piante','Il Giardiniere Fedele','Le Piante Ti Parlano'],
+  'spesa-frutta-e-verdura':['🥦','Cinque Porzioni','Cacciatore di Offerte','Il Fruttivendolo Amico','Vitamina Ambulante']
+};
+const ROOM_ACH = {
+  'Cucina':['🍳','Sguattero Volenteroso','Aiuto Cuoco','Sous-Chef delle Pulizie','Capo Brigata','Imperatore della Cucina'],
+  'Zona giorno e camera':['🏠','Abitante del Divano','Custode del Salotto','Architetto dell’Ordine','Feng Shui Vivente','Sovrano della Zona Giorno'],
+  'Bagno':['🛁','Turista del Bagno','Idraulico Mancato','Ninja della Ceramica','Sacerdote del Bagno','Divinità delle Piastrelle'],
+  'Bucato':['🧺','Calzino Spaiato','Ritrovatore di Calzini','Lavandaio di Corte','Barone della Centrifuga','Imperatore dell’Ammorbidente'],
+  'Balconi':['🌱','Turista della Veranda','Guardiano del Balcone','Botanico Urbano','Signore della Veranda','Re dei Ragni (Sfrattati)'],
+  'Extra':['⭐','Tuttofare','Jolly di Casa','Coltellino Svizzero','Problem Solver','MacGyver Domestico']
+};
+const TOGETHER_ROOM = {
+  'Cucina':['Cucina a Quattro Mani','MasterChef in Coppia'], 'Zona giorno e camera':['Divano Condiviso','Salotto di Coppia'],
+  'Bagno':['Bagno a Due Piazze','Coppia Anti-Calcare'], 'Bucato':['Piegatura Sincronizzata','La Lavatrice dell’Amore'],
+  'Balconi':['Veranda Romantica','Tramonto sul Balcone Pulito'], 'Extra':['Spesa Mano nella Mano','Cena per Due (e Piatti per Due)']
+};
+const CAT_EMOJI = {'Cucina':'🍳','Zona giorno e camera':'🏠','Bagno':'🛁','Bucato':'🧺','Balconi':'🌱','Extra':'⭐'};
+
 /* ---------------- utilità ---------------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const r1 = n => Math.round(n*10)/10;
 const fmt = n => r1(n).toLocaleString('it-IT');
 const slug = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
-const hash = s => { let h=2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h,16777619); } return (h>>>0)/4294967295; };
-const monthKey = t => { const d=new Date(t); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); };
+const pad = n => String(n).padStart(2,'0');
+const monthKey = t => { const d=new Date(t); return d.getFullYear()+'-'+pad(d.getMonth()+1); };
+const dateKey = t => { const d=new Date(t); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); };
+const keyToMs = k => { const [y,m,d]=k.split('-').map(Number); return new Date(y,m-1,d||1).getTime(); };
+const addDays = (k,n) => { const [y,m,d]=k.split('-').map(Number); return dateKey(new Date(y,m-1,d+n).getTime()); };
 const startOfMonth = t => { const d=new Date(t); return new Date(d.getFullYear(), d.getMonth(), 1).getTime(); };
 const endOfMonth = t => { const d=new Date(t); return new Date(d.getFullYear(), d.getMonth()+1, 1).getTime(); };
 const monthName = k => { const [y,m]=k.split('-'); const s=new Date(+y,+m-1,1).toLocaleDateString('it-IT',{month:'long',year:'numeric'}); return s[0].toUpperCase()+s.slice(1); };
+const monthShort = k => monthName(k).split(' ')[0].toLowerCase();
 const dayStart = t => { const d=new Date(t); d.setHours(0,0,0,0); return d.getTime(); };
+const fmtDay = k => new Date(keyToMs(k)).toLocaleDateString('it-IT',{day:'numeric',month:'short'});
 function relDay(t){
   if (t==null) return 'mai';
   const diff = Math.round((dayStart(Date.now())-dayStart(t))/DAY);
-  if (diff===0) return 'oggi'; if (diff===1) return 'ieri'; if (diff<7) return diff+' giorni fa';
+  if (diff===0) return 'oggi'; if (diff===1) return 'ieri'; if (diff>1 && diff<7) return diff+' giorni fa';
   return new Date(t).toLocaleDateString('it-IT',{day:'numeric',month:'short'});
 }
+const hhmm = t => new Date(t).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
 function freqLabel(d){
   if (!d) return 'senza scadenza';
   if (d===1) return 'ogni giorno';
@@ -248,9 +354,13 @@ function freqLabel(d){
   if (d%7===0) return d===7 ? 'ogni settimana' : `ogni ${d/7} settimane`;
   return `ogni ${d} giorni`;
 }
-const deepMerge = (a,b) => { const o={...(a||{})}; for (const [k,v] of Object.entries(b||{})) o[k] = (v && typeof v==='object' && !Array.isArray(v) && o[k] && typeof o[k]==='object' && !Array.isArray(o[k])) ? deepMerge(o[k],v) : v; return o; };
+const isObj = v => v && typeof v==='object' && !Array.isArray(v);
+const deepMerge = (a,b) => { const o={...(a||{})}; for (const [k,v] of Object.entries(b||{})) o[k] = (isObj(v) && isObj(o[k])) ? deepMerge(o[k],v) : v; return o; };
+const deepAdd = (a,b) => { const o={...(a||{})}; for (const [k,v] of Object.entries(b||{})) o[k] = isObj(v) ? deepAdd(isObj(o[k])?o[k]:{}, v) : (+(o[k]||0) + v); return o; };
+const localInput = t => new Date(t - new Date(t).getTimezoneOffset()*60000).toISOString().slice(0,16);
 
 /* ---------------- archivio dati: Firebase o demo ---------------- */
+const COLS = ['tasks','completions','months','stats','achievements','daily'];
 async function firebaseStore(cfg){
   const B = `https://www.gstatic.com/firebasejs/${FIREBASE_VERSION}/`;
   const [A, AU, F] = await Promise.all([import(B+'firebase-app.js'), import(B+'firebase-auth.js'), import(B+'firebase-firestore.js')]);
@@ -260,6 +370,7 @@ async function firebaseStore(cfg){
   try { db = F.initializeFirestore(app, {localCache: F.persistentLocalCache({tabManager: F.persistentMultipleTabManager()})}); }
   catch(e){ db = F.getFirestore(app); }
   const list = s => s.docs.map(d => ({id:d.id, ...d.data()}));
+  const toInc = o => Object.fromEntries(Object.entries(o).map(([k,v]) => [k, isObj(v) ? toInc(v) : F.increment(v)]));
   return {
     mode:'firebase',
     onAuth: cb => AU.onAuthStateChanged(auth, u => cb(u ? {uid:u.uid, email:u.email} : null)),
@@ -267,12 +378,15 @@ async function firebaseStore(cfg){
     signUp: (e,p) => AU.createUserWithEmailAndPassword(auth,e,p),
     reset: e => AU.sendPasswordResetEmail(auth,e),
     signOut: () => AU.signOut(auth),
-    subscribe(since, h, onErr){
+    subscribe(q, h, onErr){
       const u = [
         F.onSnapshot(F.collection(db,'tasks'), s => h.tasks(list(s), s.metadata.fromCache), onErr),
-        F.onSnapshot(F.query(F.collection(db,'completions'), F.where('at','>=',since)), s => h.completions(list(s), s.metadata.fromCache), onErr),
+        F.onSnapshot(F.query(F.collection(db,'completions'), F.where('at','>=',q.since)), s => h.completions(list(s), s.metadata.fromCache), onErr),
         F.onSnapshot(F.doc(db,'config','main'), s => h.config(s.exists() ? s.data() : null, s.metadata.fromCache), onErr),
-        F.onSnapshot(F.collection(db,'months'), s => h.months(list(s), s.metadata.fromCache), onErr)
+        F.onSnapshot(F.collection(db,'months'), s => h.months(list(s), s.metadata.fromCache), onErr),
+        F.onSnapshot(F.collection(db,'stats'), s => h.stats(list(s), s.metadata.fromCache), onErr),
+        F.onSnapshot(F.collection(db,'achievements'), s => h.achievements(list(s), s.metadata.fromCache), onErr),
+        F.onSnapshot(F.query(F.collection(db,'daily'), F.where('date','>=',q.dailySince)), s => h.daily(list(s), s.metadata.fromCache), onErr)
       ];
       return () => u.forEach(f => f());
     },
@@ -282,6 +396,7 @@ async function firebaseStore(cfg){
         for (const op of ops.slice(i,i+450)){
           const ref = F.doc(db, op.col, op.id);
           if (op.type==='set') b.set(ref, op.data, {merge: !!op.merge});
+          else if (op.type==='inc') b.set(ref, toInc(op.data), {merge:true});
           else if (op.type==='delete') b.delete(ref);
         }
         await b.commit();
@@ -290,45 +405,48 @@ async function firebaseStore(cfg){
     newId: col => F.doc(F.collection(db,col)).id,
     async dumpAll(){
       const out = {};
-      for (const c of ['tasks','completions','months','config']) out[c] = list(await F.getDocs(F.collection(db,c)));
+      for (const c of [...COLS,'config']) out[c] = list(await F.getDocs(F.collection(db,c)));
       return out;
     }
   };
 }
 function demoStore(){
-  const K='casapulita-demo-v1';
+  const K='casaciompi-demo-v2';
+  const empty = () => Object.fromEntries([...COLS,'config'].map(c => [c,{}]));
   let st; try { st = JSON.parse(localStorage.getItem(K)); } catch(e){}
-  st = st || {tasks:{}, completions:{}, config:{}, months:{}};
+  st = {...empty(), ...(st||{})};
   const users = [{uid:'demo-a', email:'tu@demo'}, {uid:'demo-b', email:'lei@demo'}];
   let who = 0; try { who = +localStorage.getItem(K+'-who') || 0; } catch(e){}
   let h = null, authCb = null;
   const save = () => { try { localStorage.setItem(K, JSON.stringify(st)); } catch(e){} };
   const arr = col => Object.entries(st[col]).map(([id,d]) => ({id, ...d}));
-  const emit = () => { if (!h) return; h.tasks(arr('tasks'),false); h.completions(arr('completions'),false); h.config(st.config.main||null,false); h.months(arr('months'),false); };
+  const emit = () => { if (!h) return; COLS.forEach(c => h[c](arr(c), false)); h.config(st.config.main||null, false); };
   return {
     mode:'demo',
     onAuth(cb){ authCb = cb; setTimeout(() => cb(users[who])); },
     switchUser(){ who = 1-who; try { localStorage.setItem(K+'-who', who); } catch(e){} authCb(users[who]); },
-    resetDemo(){ st = {tasks:{}, completions:{}, config:{}, months:{}}; save(); location.reload(); },
+    resetDemo(){ st = empty(); save(); location.reload(); },
     signOut(){ this.switchUser(); },
-    subscribe(since, handlers){ h = handlers; setTimeout(emit); return () => { h = null; }; },
+    subscribe(q, handlers){ h = handlers; setTimeout(emit); return () => { h = null; }; },
     async commit(ops){
       for (const op of ops){
         if (op.type==='set') st[op.col][op.id] = op.merge ? deepMerge(st[op.col][op.id], op.data) : JSON.parse(JSON.stringify(op.data));
+        else if (op.type==='inc') st[op.col][op.id] = deepAdd(st[op.col][op.id], op.data);
         else if (op.type==='delete') delete st[op.col][op.id];
       }
       save(); emit();
     },
     newId: () => Math.random().toString(36).slice(2,12)+Date.now().toString(36),
-    async dumpAll(){ return {tasks:arr('tasks'), completions:arr('completions'), months:arr('months'), config:arr('config')}; }
+    async dumpAll(){ return Object.fromEntries([...COLS,'config'].map(c => [c, arr(c)])); }
   };
 }
 
 /* ---------------- stato ---------------- */
 const S = {
-  user:null, tasks:[], completions:[], config:null, months:[],
+  user:null, tasks:[], completions:[], config:null, months:[], stats:[], achievements:[], daily:[],
   loaded:{}, server:{}, error:null,
-  tab: (location.hash.slice(1) || 'home'), cat:'Tutte', authMode:'login', authMsg:''
+  tab: (location.hash.slice(1) || 'home'), cat:'Tutte', authMode:'login', authMsg:'',
+  achView:null, achFilter:'all', open:{}
 };
 let store, unsub = null;
 const settings = () => ({...DEFAULT_SETTINGS, ...(S.config?.settings || {})});
@@ -339,27 +457,37 @@ const other = () => players().find(p => p.uid !== S.user?.uid) || null;
 const pl = uid => playersMap()[uid] || {name:'?', emoji:'❔', color:'#999'};
 const activeTasks = () => S.tasks.filter(t => t.active !== false);
 const customFields = () => S.config?.customFields || [];
+const isReset = c => c.type === 'reset';
 function categories(){
   const seen = [];
   [...S.tasks].sort((a,b) => (a.order??999)-(b.order??999)).forEach(t => { if (!seen.includes(t.category)) seen.push(t.category); });
   return seen;
 }
 
+/* ---------------- vacanze ---------------- */
+const pauses = () => S.config?.pauses || [];
+const pauseRanges = () => pauses().map(p => [keyToMs(p.from), keyToMs(addDays(p.to,1))]).filter(([a,b]) => b > a);
+function pausedOverlap(a, b){ let s = 0; for (const [x,y] of pauseRanges()){ const lo=Math.max(a,x), hi=Math.min(b,y); if (hi>lo) s += hi-lo; } return s; }
+const effElapsed = (a, b) => b <= a ? 0 : (b-a) - pausedOverlap(a, b);
+function dueFrom(last, span){ let t = last + span; for (let i=0; i<30; i++){ const t2 = last + span + pausedOverlap(last, t); if (t2 === t) break; t = t2; } return t; }
+const isPausedDay = k => { const t = keyToMs(k) + DAY/2; return pauseRanges().some(([a,b]) => t>=a && t<b); };
+const currentPause = () => { const now = Date.now(); return pauses().find(p => now >= keyToMs(p.from) && now < keyToMs(addDays(p.to,1))); };
+
 /* ---------------- regole di punteggio ---------------- */
 function taskState(t, now = Date.now()){
   const set = settings();
   if (!t.freqDays) return {kind:'free', mult:1, health:null, status:'free', dueAt:null, note:''};
-  const r = t.lastDoneAt == null ? 1 : (now - t.lastDoneAt) / (t.freqDays*DAY);
-  const dueAt = t.lastDoneAt == null ? now : t.lastDoneAt + t.freqDays*DAY;
+  const span = t.freqDays*DAY;
+  const r = t.lastDoneAt == null ? 1 : effElapsed(t.lastDoneAt, now) / span;
+  const dueAt = t.lastDoneAt == null ? now : dueFrom(t.lastDoneAt, span);
   let mult = 1, note = '';
-  const daysToDue = (dueAt - now) / DAY;
-  if (r < set.earlyThreshold && daysToDue > 2){ mult = set.earlyMult; note = `fatta da poco: vale ${Math.round(set.earlyMult*100)}%`; }
+  if (r < set.earlyThreshold && (dueAt-now)/DAY > 2){ mult = set.earlyMult; note = `fatta da poco: vale ${Math.round(set.earlyMult*100)}%`; }
   else if (r > 1){ const b = Math.min(set.overdueMaxBonus, (r-1)*set.overdueMaxBonus); mult = 1+b; note = `bonus ritardo +${Math.round(b*100)}%`; }
-  const health = r <= 1 ? 1 : r >= 2 ? 0 : 2 - r;
-  const left = (dueAt - now) / DAY;
+  // pulizia: 100% appena fatta, 50% alla scadenza, 0% dopo un periodo intero di ritardo
+  const health = Math.max(0, 1 - r/2);
   const dd = Math.round((dayStart(dueAt) - dayStart(now)) / DAY);
   const status = r > 1 ? 'late' : dd <= 1 ? 'soon' : 'ok';
-  return {kind:'timed', r, mult, health, status, dueAt, note, left};
+  return {kind:'timed', r, mult, health, status, dueAt, note};
 }
 function dueLabel(st){
   if (st.kind === 'free') return 'quando serve';
@@ -378,8 +506,9 @@ function houseHealth(){
   }
   return {pct: w ? Math.round(s/w*100) : 100, cats: categories().filter(c => cats[c]).map(c => ({name:c, pct:Math.round(cats[c].s/cats[c].w*100)}))};
 }
+const healthColor = p => p >= 70 ? 'var(--good)' : p >= 50 ? 'var(--warn)' : 'var(--bad)';
 function monthData(key){
-  const comps = S.completions.filter(c => c.month === key);
+  const comps = S.completions.filter(c => c.month === key && !isReset(c));
   const scores = {}, counts = {}; let together = 0, damage = 0;
   for (const c of comps){
     for (const [uid,p] of Object.entries(c.awards || {})){ scores[uid] = (scores[uid]||0) + p; counts[uid] = (counts[uid]||0) + 1; }
@@ -389,61 +518,147 @@ function monthData(key){
   return {comps, scores, counts, together, damage};
 }
 function expectedMonthly(){ return activeTasks().filter(t => t.freqDays).reduce((s,t) => s + t.points*30/t.freqDays, 0); }
+function bossOf(key){ const [y,m] = key.split('-').map(Number); return BOSSES[((y*12 + m-1)*7) % BOSSES.length]; }
 function bossInfo(key){
-  const b = BOSSES[(+key.slice(5)) - 1];
+  const b = bossOf(key);
   const weak = categories().includes(b.weak) ? b.weak : null;
-  // il primo mese il boss è più debole, in proporzione ai giorni rimasti dall'inizio del gioco
-  const s0 = startOfMonth(new Date(+key.slice(0,4), +key.slice(5)-1, 1).getTime()), e0 = endOfMonth(s0);
+  const s0 = keyToMs(key+'-01'), e0 = endOfMonth(s0);
+  // il primo mese (e i giorni di vacanza) rendono il boss più debole in proporzione
   const start = Math.min(Math.max(s0, S.config?.startedAt || s0), e0 - DAY);
-  const portion = (e0 - start) / (e0 - s0);
-  return {...b, weak, start, hp: Math.max(10, Math.round(expectedMonthly()*settings().bossDifficulty*portion))};
+  const active = Math.max(DAY, effElapsed(start, e0));
+  const hp = Math.max(10, Math.round(expectedMonthly()*settings().bossDifficulty*active/(e0-s0)));
+  return {...b, weak, start, end:e0, active, hp};
+}
+function bossDefeatDay(key){
+  const b = bossInfo(key); let dmg = 0;
+  for (const c of monthData(key).comps.sort((x,y) => x.at-y.at)){ dmg += c.damage||0; if (dmg >= b.hp) return new Date(c.at).getDate(); }
+  return null;
+}
+
+/* ---------------- statistiche (per i premi) ---------------- */
+function statDelta(c, sign = 1){
+  const out = {}; if (!c || isReset(c)) return out;
+  const dk = dateKey(c.at), h = new Date(c.at).getHours(), both = (c.byUids||[]).length > 1;
+  for (const uid of c.byUids || []){
+    const p = (c.awards||{})[uid] || 0;
+    const d = {total:sign, points:sign*p, perTask:{[c.taskId]:sign}, perCat:{[c.category]:sign*p}, days:{[dk]:{n:sign, p:sign*p}}};
+    if (both){ d.together = sign; d.togetherCat = {[c.category]:sign}; }
+    if ((c.mult||1) >= 1.25) d.rescues = sign;
+    if (h >= 4 && h < 8) d.early = sign;
+    if (h >= 23 || h < 4) d.night = sign;
+    if (c.finalBlow) d.finals = sign;
+    out[uid] = d;
+  }
+  return out;
+}
+function statOps(...deltas){
+  const acc = {}; for (const d of deltas) for (const [uid,v] of Object.entries(d)) acc[uid] = deepAdd(acc[uid], v);
+  return Object.entries(acc).map(([uid,data]) => ({type:'inc', col:'stats', id:uid, data}));
+}
+function lastDoneFor(taskId, comps, fallback){
+  const cs = comps.filter(c => c.taskId === taskId);
+  if (!cs.length) return fallback;
+  const l = cs.reduce((a,b) => b.at > a.at ? b : a);
+  return {lastDoneAt:l.at, lastDoneBy:l.byUids||[]};
 }
 
 /* ---------------- azioni ---------------- */
-function completeTask(taskId, uids){
-  const t = S.tasks.find(x => x.id === taskId); if (!t) return;
-  const now = Date.now(), set = settings(), st = taskState(t, now);
-  const key = monthKey(now), boss = bossInfo(key);
-  const value = t.points * st.mult;
-  const share = uids.length > 1 ? set.coopShare : 1;
+function makeCompletion(t, uids, at, mult){
+  const set = settings(), key = monthKey(at), boss = bossInfo(key);
+  const value = t.points * mult, share = uids.length > 1 ? set.coopShare : 1;
   const awards = {}; uids.forEach(u => awards[u] = r1(value*share));
   const total = Object.values(awards).reduce((a,b) => a+b, 0);
-  const weakHit = boss.weak && boss.weak === t.category;
-  const damage = r1(total * (weakHit ? set.weaknessMult : 1));
+  const weakHit = !!(boss.weak && boss.weak === t.category);
+  return {taskId:t.id, taskName:t.name, category:t.category, byUids:uids, awards, base:t.points, mult:Math.round(mult*100)/100,
+          damage:r1(total * (weakHit ? set.weaknessMult : 1)), at, month:key, type: uids.length ? 'done' : 'reset', weakHit};
+}
+function completeTask(taskId, uids){
+  const t = S.tasks.find(x => x.id === taskId); if (!t) return;
+  const now = Date.now(), st = taskState(t, now), key = monthKey(now), boss = bossInfo(key);
+  const c = makeCompletion(t, uids, now, st.mult);
   const before = monthData(key).damage;
+  c.finalBlow = before < boss.hp && before + c.damage >= boss.hp;
+  Object.assign(c, {loggedBy:S.user.uid, prevLastDoneAt:t.lastDoneAt ?? null, prevLastDoneBy:t.lastDoneBy ?? null});
+  delete c.weakHit;
   const id = store.newId('completions');
-  const c = {taskId:t.id, taskName:t.name, category:t.category, byUids:uids, awards, base:t.points, mult:r1(st.mult*100)/100,
-             damage, at:now, month:key, loggedBy:S.user.uid, prevLastDoneAt:t.lastDoneAt ?? null, prevLastDoneBy:t.lastDoneBy ?? null};
   store.commit([
     {type:'set', col:'completions', id, data:c},
-    {type:'set', col:'tasks', id:t.id, data:{lastDoneAt:now, lastDoneBy:uids}, merge:true}
+    {type:'set', col:'tasks', id:t.id, data:{lastDoneAt:now, lastDoneBy:uids}, merge:true},
+    ...statOps(statDelta(c))
   ]).catch(err => toast('⚠️ Errore nel salvataggio: '+err.message));
   closeModal();
-  const who = uids.length > 1 ? 'a testa' : '';
-  toast(`+${fmt(awards[uids[0]])} punti ${who} · −${fmt(damage)} HP${weakHit ? ' 💥' : ''}`);
+  toast(`+${fmt(c.awards[uids[0]])} punti${uids.length>1?' a testa':''} · −${fmt(c.damage)} HP${boss.weak===t.category?' 💥':''}`);
   burst(uids.length > 1 ? ['💞','✨','🧽'] : ['✨','🧽','⭐']);
-  if (before < boss.hp && before + damage >= boss.hp) setTimeout(() => { burst(['🏆','🎉','⚔️','💥'], 40); toast(`${boss.emoji} ${boss.name} è stato sconfitto! 🎉`); }, 900);
+  if (c.finalBlow) setTimeout(() => { confetti(); toast(`${boss.emoji} ${boss.name} è stato sconfitto! 🎉`); }, 900);
 }
-function undoCompletion(id){
-  const c = S.completions.find(x => x.id === id); if (!c) return;
-  const ops = [{type:'delete', col:'completions', id}];
-  const t = S.tasks.find(x => x.id === c.taskId);
-  if (t && t.lastDoneAt === c.at) ops.push({type:'set', col:'tasks', id:t.id, data:{lastDoneAt:c.prevLastDoneAt ?? null, lastDoneBy:c.prevLastDoneBy ?? null}, merge:true});
+function resetTasks(ids, at){
+  const ops = [];
+  for (const id of ids){
+    const t = S.tasks.find(x => x.id === id); if (!t) continue;
+    const c = {taskId:t.id, taskName:t.name, category:t.category, byUids:[], awards:{}, base:t.points, mult:1, damage:0, at, month:monthKey(at),
+               type:'reset', loggedBy:S.user.uid, prevLastDoneAt:t.lastDoneAt ?? null, prevLastDoneBy:t.lastDoneBy ?? null};
+    ops.push({type:'set', col:'completions', id:store.newId('completions'), data:c});
+    if (!t.lastDoneAt || at >= t.lastDoneAt) ops.push({type:'set', col:'tasks', id:t.id, data:{lastDoneAt:at, lastDoneBy:[]}, merge:true});
+  }
+  if (!ops.length) return;
   store.commit(ops).catch(err => toast('⚠️ '+err.message));
-  closeModal(); toast('Annullata ↩️');
+  closeModal(); toast(`🔄 ${ids.length === 1 ? 'Attività azzerata' : ids.length+' attività azzerate'}`);
 }
+function deleteCompletion(id){
+  const c = S.completions.find(x => x.id === id); if (!c) return;
+  const sim = S.completions.filter(x => x.id !== id);
+  const ops = [{type:'delete', col:'completions', id}, ...statOps(statDelta(c, -1))];
+  if (S.tasks.some(t => t.id === c.taskId))
+    ops.push({type:'set', col:'tasks', id:c.taskId, data:lastDoneFor(c.taskId, sim, {lastDoneAt:c.prevLastDoneAt ?? null, lastDoneBy:c.prevLastDoneBy ?? null}), merge:true});
+  store.commit(ops).catch(err => toast('⚠️ '+err.message));
+  closeModal(); toast('Eliminata ↩️');
+}
+function saveCompletionEdit(id, f){
+  const old = S.completions.find(x => x.id === id); if (!old) return;
+  const v = Object.fromEntries(new FormData(f));
+  const t = S.tasks.find(x => x.id === v.task); if (!t) return;
+  const o = other();
+  const uids = v.who==='me' ? [S.user.uid] : v.who==='other' ? [o.uid] : v.who==='both' ? [S.user.uid, o.uid] : [];
+  const at = new Date(v.at).getTime(); if (!at) return toast('Data non valida');
+  const mult = isReset(old) ? 1 : (old.mult || 1);
+  const nc = {...old, ...makeCompletion(t, uids, at, mult)};
+  delete nc.id; delete nc.weakHit;
+  if (t.id !== old.taskId){ nc.prevLastDoneAt = t.lastDoneAt ?? null; nc.prevLastDoneBy = t.lastDoneBy ?? null; }
+  if (nc.type === 'reset') nc.finalBlow = false;
+  const sim = S.completions.map(x => x.id === id ? {...nc, id} : x);
+  const ops = [{type:'set', col:'completions', id, data:nc}, ...statOps(statDelta(old, -1), statDelta(nc))];
+  for (const tid of new Set([old.taskId, t.id])) if (S.tasks.some(x => x.id === tid))
+    ops.push({type:'set', col:'tasks', id:tid, data:lastDoneFor(tid, sim, {lastDoneAt:old.prevLastDoneAt ?? null, lastDoneBy:old.prevLastDoneBy ?? null}), merge:true});
+  store.commit(ops).catch(err => toast('⚠️ '+err.message));
+  closeModal(); toast('Modificata ✅');
+}
+const startLast = (freq, now) => now - Math.floor(freq/2)*DAY;
 function seedIfNeeded(){
   if (!(S.server.config && S.server.tasks) || S.config?.seeded || S.tasks.length || S._seeding) return;
   S._seeding = true;
   const now = Date.now(), ops = []; let order = 0;
   for (const [cat, items] of SEED) for (const [name, freq, pts] of items){
-    const id = slug(name);
-    // le scadenze iniziali sono sfalsate, così non è tutto "da fare" il primo giorno
-    const last = freq ? Math.round(now - freq*DAY*(0.5 + 0.45*hash(id))) : null;
-    ops.push({type:'set', col:'tasks', id, data:{name, category:cat, freqDays:freq, points:pts, active:true, order:order++, lastDoneAt:last, lastDoneBy:null, custom:{}}});
+    // partenza: ogni attività risulta fatta metà periodo fa (arrotondato per difetto)
+    ops.push({type:'set', col:'tasks', id:slug(name), data:{name, category:cat, freqDays:freq, points:pts, active:true, order:order++,
+      lastDoneAt: freq ? startLast(freq, now) : null, lastDoneBy:null, custom:{}}});
   }
-  ops.push({type:'set', col:'config', id:'main', data:{seeded:true, startedAt:now, settings:DEFAULT_SETTINGS, customFields:[]}, merge:true});
+  ops.push({type:'set', col:'config', id:'main', data:{seeded:true, startV2:true, startedAt:now, settings:DEFAULT_SETTINGS, customFields:[], pauses:[]}, merge:true});
   store.commit(ops).catch(err => { S._seeding = false; toast('⚠️ '+err.message); });
+}
+/* per i database creati con la prima versione */
+function upgradeIfNeeded(){
+  if (!(S.server.config && S.server.tasks && S.server.completions) || !S.config?.seeded || S.config?.startV2 || S._upgrading) return;
+  S._upgrading = true;
+  const now = Date.now(), ops = [];
+  for (const t of S.tasks) if (t.freqDays && !(t.lastDoneBy && t.lastDoneBy.length))
+    ops.push({type:'set', col:'tasks', id:t.id, data:{lastDoneAt:startLast(t.freqDays, now)}, merge:true});
+  // ricostruisce le statistiche dei premi dallo storico caricato
+  const acc = {}; for (const c of S.completions) for (const [uid,d] of Object.entries(statDelta(c))) acc[uid] = deepAdd(acc[uid], d);
+  for (const [uid,data] of Object.entries(acc)) ops.push({type:'set', col:'stats', id:uid, data});
+  const cfg = {startV2:true, startedAt:now};
+  if (settings().earlyThreshold === 0.5) cfg.settings = {...settings(), earlyThreshold:0.4};
+  ops.push({type:'set', col:'config', id:'main', data:cfg, merge:true});
+  store.commit(ops).catch(() => { S._upgrading = false; });
 }
 function archiveIfNeeded(){
   if (!(S.server.completions && S.server.months && S.server.tasks) || S._archived) return;
@@ -458,7 +673,214 @@ function archiveIfNeeded(){
   const names = {}; players().forEach(p => names[p.uid] = {name:p.name, emoji:p.emoji, color:p.color});
   store.commit([{type:'set', col:'months', id:prev, data:{
     scores:Object.fromEntries(Object.entries(d.scores).map(([k,v]) => [k, r1(v)])), counts:d.counts, together:d.together, winner, players:names,
-    bossName:boss.name, bossEmoji:boss.emoji, bossHp:boss.hp, bossDamage:r1(d.damage), bossDefeated:d.damage >= boss.hp, archivedAt:Date.now()}}]).catch(()=>{});
+    bossName:boss.name, bossEmoji:boss.emoji, bossHp:boss.hp, bossDamage:r1(d.damage), bossDefeated:d.damage >= boss.hp,
+    bossDefeatDay:bossDefeatDay(prev), archivedAt:Date.now()}}]).catch(()=>{});
+}
+function snapshotDaily(){
+  if (!S.server.daily || !S.server.tasks || !S.server.config) return;
+  const k = dateKey(Date.now()), pct = houseHealth().pct, doc = S.daily.find(d => d.id === k);
+  const sig = k+':'+pct; if (S._dailySig === sig) return;
+  S._dailySig = sig;
+  if (doc && pct >= doc.min && pct <= doc.max) return;
+  store.commit([{type:'set', col:'daily', id:k, data:{date:k, min:Math.min(doc?.min ?? 101, pct), max:Math.max(doc?.max ?? -1, pct)}, merge:true}]).catch(()=>{});
+}
+
+/* ================================================================
+   PREMI
+   ================================================================ */
+function ladder(list, group, scope, metric, extra = {}){
+  return list.map(([target, name, emoji, desc], i) => ({id:`${group}-${extra.key||'x'}-${target}`, group, scope, name, emoji, desc,
+    target, tier: Math.min(4, Math.floor(i*5/list.length)), metric, ...extra}));
+}
+function taskTargets(t){
+  const freq = t.freqDays || 1.5, ppy = 365/freq/2;
+  const pf = Math.min(1.4, Math.max(0.7, Math.sqrt(3/Math.max(0.5, t.points))));
+  const T = [0.05, 0.25, 0.75, 2], MIN = [1, 2, 3, 5]; let prev = 0;
+  return T.map((x,i) => { let v = Math.max(MIN[i], Math.round(ppy*x*pf)); if (v <= prev) v = prev+1; prev = v; return v; });
+}
+function roomTargets(cat){
+  const m = activeTasks().filter(t => t.category === cat).reduce((s,t) => s + t.points*(t.freqDays ? 30/t.freqDays : 20), 0) / 2;
+  const T = [0.15, 0.75, 3, 8, 18], MIN = [5, 20, 60, 150, 300]; let prev = 0;
+  return T.map((x,i) => { let v = Math.max(MIN[i], Math.round(m*x/5)*5); if (v <= prev) v = prev+5; prev = v; return v; });
+}
+let _achCache = {sig:'', list:[]};
+function achievementsList(){
+  const sig = S.tasks.map(t => t.id+t.category+t.freqDays+t.points+t.active).join('|');
+  if (_achCache.sig === sig) return _achCache.list;
+  const L = [];
+  L.push(...ladder([
+    [1,'Il Primo Passo','👣','Completa la tua prima attività'],[10,'Ci Ho Preso Gusto','😋','Completa 10 attività'],
+    [25,'Mani in Pasta','🤲','Completa 25 attività'],[50,'Mezzo Centinaio di Sudore','💦','Completa 50 attività'],
+    [100,'Cento di Questi Stracci','💯','Completa 100 attività'],[250,'Duecentocinquanta Sfumature di Pulito','🌈','Completa 250 attività'],
+    [500,'Cinquecento Volte Sì','🙌','Completa 500 attività'],[1000,'Il Millennio del Mocio','🏛️','Completa 1000 attività'],[2000,'Oltre la Leggenda','🌌','Completa 2000 attività']
+  ], 'base', 'me', x => x.total, {key:'tot'}));
+  L.push(...ladder([
+    [50,'Spiccioli di Gloria','🪙','Accumula 50 punti in totale'],[100,'Il Primo Centone','💵','Accumula 100 punti'],[250,'Gruzzolo Pulito','👛','Accumula 250 punti'],
+    [500,'Mezzo Migliaio','💰','Accumula 500 punti'],[1000,'Mille Punti, Mille Stracci','🏦','Accumula 1000 punti'],[2500,'Paperone delle Pulizie','🦆','Accumula 2500 punti'],
+    [5000,'Banca del Detersivo','💎','Accumula 5000 punti'],[10000,'Diecimila e Non Sentirli','👑','Accumula 10000 punti']
+  ], 'base', 'me', x => x.points, {key:'pts'}));
+  L.push(...ladder([
+    [3,'Tre Giorni di Fila, Chi Ti Ferma?','🔥','Almeno un’attività al giorno per 3 giorni di fila'],[7,'Settimana Santa delle Pulizie','😇','7 giorni di fila con almeno un’attività'],
+    [14,'Quindicina Inossidabile','🛡️','14 giorni di fila'],[30,'Un Mese Senza Divano','🚫','30 giorni di fila'],[60,'Bimestre di Ferro','⚙️','60 giorni di fila'],
+    [100,'Centenario dello Straccio','🎂','100 giorni di fila'],[180,'Mezzo Anno da Eroe','🦸','180 giorni di fila'],[365,'Un Anno Senza Scuse','🗓️','365 giorni di fila']
+  ], 'costanza', 'me', x => x.bestStreak, {key:'streak'}));
+  L.push(...ladder([
+    [2,'Due Settimane Toste','💪','2 settimane di fila con almeno 10 attività ciascuna'],[4,'Mese Produttivo','📈','4 settimane di fila con almeno 10 attività'],
+    [8,'Bimestre Instancabile','🔋','8 settimane di fila'],[12,'Trimestre Stakanovista','⛏️','12 settimane di fila'],[26,'Semestre Leggendario','🏔️','26 settimane di fila'],
+    [52,'L’Anno della Scopa','🧹','52 settimane di fila']
+  ], 'costanza', 'me', x => x.bestWeeks, {key:'weeks'}));
+  L.push(...ladder([
+    [1,'Il Primo Ballo dello Straccio','💃','Fate la vostra prima attività insieme'],[5,'Coppia Che Pulisce Insieme…','💑','5 attività fatte insieme'],
+    [10,'Duo Dinamico','⚡','10 attività insieme'],[25,'Sincronia Perfetta','🎶','25 attività insieme'],[50,'Bonnie & Clyde del Pulito','🕶️','50 attività insieme'],
+    [100,'Anime Gemelle del Detersivo','💘','100 attività insieme'],[200,'Coppia Indistruttibile','🔗','200 attività insieme'],[500,'Matrimonio Splendente','💍','500 attività insieme']
+  ], 'insieme', 'me', x => x.together, {key:'tog'}));
+  categories().forEach(cat => {
+    const n = TOGETHER_ROOM[cat] || [`Coppia in ${cat}`, `Duo Leggendario: ${cat}`];
+    L.push(...ladder([[3, n[0], '🤝', `3 attività fatte insieme in «${cat}»`],[15, n[1], '💞', `15 attività fatte insieme in «${cat}»`]],
+      'insieme', 'me', x => x.togetherCat[cat]||0, {key:'togcat-'+slug(cat), roomEmoji:CAT_EMOJI[cat]||'🏠'}));
+  });
+  L.push(...ladder([
+    [1,'Squadra in Campo','⚽','Un giorno in cui avete fatto entrambi almeno un’attività'],[7,'Settimana di Squadra','🏉','7 giorni in cui avete pulito entrambi'],
+    [30,'Mese di Squadra','🏆','30 giorni in cui avete pulito entrambi'],[100,'Cento Giorni Insieme','🥂','100 giorni in cui avete pulito entrambi']
+  ], 'insieme', 'couple', x => x.bothDays, {key:'both'}));
+  const HS = {60:[['Si Può Invitare la Suocera?','🫖'],['Ospiti Benvenuti','🚪'],['Casa Presentabile','🎀'],['Mese Senza Vergogna','😌'],['Normalità Assoluta','🧘'],['Cento Giorni di Decoro','🎩']],
+              70:[['Profumo di Pulito','🌸'],['Settimana Brillante','💫'],['Casa da Catalogo','📖'],['Mese Splendente','🌞'],['Casa da Rivista','📸'],['Cento Giorni di Splendore','🌟']],
+              80:[['Ci Si Specchia nel Pavimento','🪞'],['Settimana Immacolata','🕊️'],['Hotel Ciompi','🏨'],['Mese da Sala Operatoria','🩺'],['Il Tempio del Pulito','⛩️'],['Casa Ciompi Leggendaria','🏰']]};
+  for (const th of [60,70,80]) L.push(...[3,7,14,30,60,100].map((d,i) => ({id:`casa-${th}-${d}`, group:'casa', scope:'couple', name:HS[th][i][0], emoji:HS[th][i][1],
+    desc:`${d} giorni di fila con la casa sempre sopra il ${th}%`, target:d, tier:Math.min(4,Math.floor(i*5/6)), metric:x => x.houseStreak[th]||0})));
+  L.push(...ladder([[85,'Quasi Perfetta','🫧','Portate la casa all’85%'],[90,'Scintillante','✨','Portate la casa al 90%'],[95,'Splendore Accecante','😎','Portate la casa al 95%']],
+    'casa', 'couple', x => x.housePeak, {key:'peak'}));
+  L.push(...ladder([[1,'Primo Sangue (di Polvere)','🗡️','Sconfiggete il vostro primo boss'],[3,'Cacciatori di Mostri','🏹','3 boss sconfitti'],
+    [6,'Ammazzadraghi Domestici','🐉','6 boss sconfitti'],[12,'Un Anno di Vittorie','🎖️','12 boss sconfitti'],[24,'Sterminatori Seriali','☠️','24 boss sconfitti']],
+    'boss', 'couple', x => x.bosses, {key:'boss'}));
+  L.push(...[[21,'Vittoria Anticipata','⏱️'],[15,'Blitzkrieg dello Straccio','💨'],[10,'Massacro Lampo','⚡']].map(([d,name,emoji],i) => ({id:`boss-fast-${d}`, group:'boss', scope:'couple',
+    name, emoji, desc:`Sconfiggete un boss entro il giorno ${d} del mese`, target:1, tier:i+2, metric:x => (x.fastest && x.fastest <= d) ? 1 : 0})));
+  L.push(...ladder([[1,'Colpo di Grazia','🥊','Dai tu il colpo finale a un boss'],[3,'Il Giustiziere','⚖️','3 colpi finali'],[10,'Specialista del KO','🔨','10 colpi finali']],
+    'boss', 'me', x => x.finals, {key:'finals'}));
+  L.push(...ladder([[1,'Campione del Mese','🥇','Vinci un mese'],[3,'Tris di Corone','👑','Vinci 3 mesi'],[6,'Dinastia','🏯','Vinci 6 mesi'],[12,'Imperatore dell’Anno','🦁','Vinci 12 mesi']],
+    'boss', 'me', x => x.wins, {key:'wins'}));
+  L.push(...ladder([[1,'Meglio Tardi Che Mai','🐌','Recupera un’attività molto in ritardo (bonus +25% o più)'],[10,'Il Pompiere','🚒','10 recuperi in ritardo'],
+    [50,'Salvataggio in Extremis','🛟','50 recuperi'],[100,'Protezione Civile Domestica','🦺','100 recuperi']], 'imprese', 'me', x => x.rescues, {key:'resc'}));
+  L.push(...ladder([[1,'Mattiniero','🌅','Un’attività tra le 4 e le 8 del mattino'],[10,'Il Gallo Pulitore','🐓','10 attività all’alba'],[50,'Alba Splendente','☀️','50 attività all’alba']],
+    'imprese', 'me', x => x.early, {key:'early'}));
+  L.push(...ladder([[1,'Pulizie al Chiaro di Luna','🌙','Un’attività dopo le 23'],[10,'Il Vampiro dello Straccio','🦇','10 attività notturne'],[50,'Insonnia Produttiva','🦉','50 attività notturne']],
+    'imprese', 'me', x => x.night, {key:'night'}));
+  L.push(...ladder([[5,'Giornata Piena','📋','5 attività in un giorno solo'],[10,'Turbo Mocio','🏎️','10 attività in un giorno'],[15,'Uragano Domestico','🌀','15 attività in un giorno'],[20,'Tornado di Pulito','🌪️','20 attività in un giorno']],
+    'imprese', 'me', x => x.maxDayN, {key:'dayn'}));
+  L.push(...ladder([[20,'Giornata d’Oro','🌻','20 punti in un giorno solo'],[40,'Giornata di Platino','💿','40 punti in un giorno'],[60,'Giornata Leggendaria','🌋','60 punti in un giorno']],
+    'imprese', 'me', x => x.maxDayP, {key:'dayp'}));
+  const nTasks = activeTasks().length;
+  L.push(...ladder([[10,'Assaggiatore','🍬','Fai 10 attività diverse'],[25,'Tuttologo','🧠','Fai 25 attività diverse'],[Math.max(26,nTasks),'Collezionista Completo','🗃️','Fai almeno una volta tutte le attività']],
+    'imprese', 'me', x => x.distinct, {key:'var'}));
+  L.push({id:'imprese-weekend', group:'imprese', scope:'me', name:'Weekend da Guerriero', emoji:'🛡️', desc:'10 attività nello stesso weekend', target:10, tier:2, metric:x => x.weekend});
+  categories().forEach(cat => {
+    const n = ROOM_ACH[cat] || [CAT_EMOJI[cat]||'🏠', ...TIERS.map(tn => `${tn} di ${cat}`)];
+    roomTargets(cat).forEach((target,i) => L.push({id:`room-${slug(cat)}-${i}`, group:'stanze', scope:'me', name:n[i+1], emoji:n[0], room:cat,
+      desc:`Accumula ${target} punti in «${cat}»`, target, tier:i, metric:x => x.perCat[cat]||0}));
+  });
+  [...activeTasks()].sort((a,b) => (a.order??999)-(b.order??999)).forEach(t => {
+    const n = TASK_ACH[t.id] || [CAT_EMOJI[t.category]||'🧽', `Novizio: ${t.name}`, `Esperto: ${t.name}`, `Maestro: ${t.name}`, `Leggenda: ${t.name}`];
+    taskTargets(t).forEach((target,i) => L.push({id:`task-${t.id}-${i}`, group:'attivita', scope:'me', name:n[i+1], emoji:n[0], room:t.category,
+      desc:`«${t.name}» ${target} ${target===1?'volta':'volte'}`, target, tier:i, metric:x => x.perTask[t.id]||0}));
+  });
+  _achCache = {sig, list:L};
+  return L;
+}
+const ACH_GROUPS = [['base','👣 Primi passi'],['costanza','🔥 Costanza'],['insieme','💞 Insieme'],['casa','🏡 Casa splendente'],['boss','⚔️ Boss e trofei'],['imprese','🎯 Imprese'],['stanze','🚪 Stanze'],['attivita','🧽 Attività']];
+
+function weekKey(k){ const t = keyToMs(k), d = (new Date(t).getDay()+6)%7; return addDays(k, -d); }
+function bestRun(from, to, ok, step){
+  if (!from) return 0;
+  let best = 0, cur = 0, k = from;
+  for (let i=0; i<4000 && k <= to; i++){ const r = ok(k); if (r === null){} else if (r){ cur++; best = Math.max(best, cur); } else cur = 0; k = step(k); }
+  return best;
+}
+function coupleCtx(){
+  if (S._coupleCtx && S._coupleCtx.sig === S._dataSig) return S._coupleCtx.v;
+  const today = dateKey(Date.now()), ps = players();
+  const daily = Object.fromEntries(S.daily.map(d => [d.id, d]));
+  const keys = Object.keys(daily).sort();
+  const houseStreak = {}; let housePeak = 0;
+  S.daily.forEach(d => housePeak = Math.max(housePeak, d.max ?? 0));
+  for (const th of [60,70,80]){
+    let last = null;
+    houseStreak[th] = bestRun(keys[0], today, k => {
+      if (isPausedDay(k)) return null;
+      let v = daily[k] ? daily[k].min : null;
+      if (v == null){ let nk = addDays(k,1), nv = null; for (let j=0; j<30 && nk <= today; j++){ if (daily[nk]){ nv = daily[nk].min; break; } nk = addDays(nk,1); }
+        v = Math.min(last ?? 100, nv ?? last ?? 0); }
+      last = v; return v >= th;
+    }, k => addDays(k,1));
+  }
+  let bothDays = 0;
+  if (ps.length > 1){ const [a,b] = ps.map(p => S.stats.find(s => s.id === p.uid)?.days || {});
+    bothDays = Object.keys(a).filter(k => (a[k]?.n||0) > 0 && (b[k]?.n||0) > 0).length; }
+  const cur = monthKey(Date.now()), curDay = bossDefeatDay(cur);
+  const bosses = S.months.filter(m => m.bossDefeated && m.id !== cur).length + (curDay ? 1 : 0);
+  const days = [...S.months.filter(m => m.bossDefeated && m.bossDefeatDay && m.id !== cur).map(m => m.bossDefeatDay), curDay].filter(Boolean);
+  const v = {houseStreak, housePeak, bothDays, bosses, fastest: days.length ? Math.min(...days) : null};
+  S._coupleCtx = {sig:S._dataSig, v}; return v;
+}
+function achCtx(uid){
+  const st = S.stats.find(s => s.id === uid) || {};
+  const days = st.days || {}, today = dateKey(Date.now());
+  const dk = Object.keys(days).filter(k => (days[k]?.n||0) > 0).sort();
+  const bestStreak = bestRun(dk[0], today, k => isPausedDay(k) ? null : (days[k]?.n||0) > 0 ? true : (k === today ? null : false), k => addDays(k,1));
+  const weeks = {}; dk.forEach(k => { const w = weekKey(k); weeks[w] = (weeks[w]||0) + days[k].n; });
+  const wk = Object.keys(weeks).sort(), thisWeek = weekKey(today);
+  const bestWeeks = bestRun(wk[0], thisWeek, k => (weeks[k]||0) >= 10 ? true : (k === thisWeek ? null : false), k => addDays(k,7));
+  let maxDayN = 0, maxDayP = 0, weekend = 0;
+  dk.forEach(k => { maxDayN = Math.max(maxDayN, days[k].n); maxDayP = Math.max(maxDayP, days[k].p||0);
+    const wd = new Date(keyToMs(k)).getDay();
+    if (wd === 6) weekend = Math.max(weekend, days[k].n + (days[addDays(k,1)]?.n||0));
+    if (wd === 0) weekend = Math.max(weekend, days[k].n + (days[addDays(k,-1)]?.n||0)); });
+  const perTask = st.perTask || {}, act = activeTasks();
+  const distinct = act.filter(t => (perTask[t.id]||0) > 0).length;
+  return {total:st.total||0, points:r1(st.points||0), perTask, perCat:st.perCat||{}, together:st.together||0, togetherCat:st.togetherCat||{},
+    rescues:st.rescues||0, early:st.early||0, night:st.night||0, finals:st.finals||0, bestStreak, bestWeeks, maxDayN, maxDayP:r1(maxDayP), weekend,
+    distinct: distinct === act.length && act.length ? Math.max(26, act.length) : distinct,
+    wins: S.months.filter(m => m.winner === uid).length, ...coupleCtx()};
+}
+function evaluate(uid){
+  const ctx = achCtx(uid), stored = S.achievements.find(a => a.id === uid)?.unlocked || {};
+  return achievementsList().map(a => { const v = Math.max(0, a.metric(ctx) || 0); const done = !!stored[a.id] || v >= a.target;
+    return {...a, value:v, done, when:stored[a.id] || null, pct: done ? 100 : Math.min(99, Math.floor(v/a.target*100))}; });
+}
+function checkUnlocks(){
+  const need = ['config','tasks','completions','stats','achievements','months','daily'];
+  if (!need.every(k => S.server[k]) || !me()) return;
+  const fresh = evaluate(S.user.uid).filter(a => a.done && !a.when && !S._shown.has(a.id));
+  if (!fresh.length) return;
+  fresh.forEach(a => S._shown.add(a.id));
+  const now = Date.now();
+  store.commit([{type:'set', col:'achievements', id:S.user.uid, data:{unlocked:Object.fromEntries(fresh.map(a => [a.id, now]))}, merge:true}]).catch(()=>{});
+  const show = [...fresh].sort((a,b) => b.tier - a.tier).slice(0, 3);
+  S._prizeQueue.push(...show.map((a,i) => ({...a, more: i === show.length-1 ? fresh.length - show.length : 0})));
+  if (!$('#prize').innerHTML) setTimeout(nextPrize, 700);
+}
+
+/* badge grafico unico: forma per categoria, colore per livello, emoji per premio */
+let _bid = 0;
+function starPts(n, R, r){ const p = []; for (let i=0; i<n*2; i++){ const a = Math.PI*i/n - Math.PI/2, rr = i%2 ? r : R; p.push((50+rr*Math.cos(a)).toFixed(1)+','+(50+rr*Math.sin(a)).toFixed(1)); } return p.join(' '); }
+const SHAPES = {
+  attivita:'<circle cx="50" cy="50" r="46"/>',
+  stanze:'<polygon points="50,3 91,26 91,74 50,97 9,74 9,26"/>',
+  costanza:'<path d="M50 3 L91 15 V47 C91 73 72 90 50 97 C28 90 9 73 9 47 V15 Z"/>',
+  insieme:'<path d="M50 94 C18 72 3 54 3 33 C3 16 15 5 30 5 C40 5 46 11 50 17 C54 11 60 5 70 5 C85 5 97 16 97 33 C97 54 82 72 50 94Z"/>',
+  casa:'<path d="M50 3 L97 40 V97 H3 V40 Z"/>',
+  boss:`<polygon points="${starPts(8,48,36)}"/>`,
+  imprese:'<rect x="4" y="4" width="92" height="92" rx="26"/>',
+  base:'<polygon points="50,2 98,50 50,98 2,50"/>'
+};
+function badge(a, size = 52){
+  const id = 'bg'+(++_bid), [c1,c2] = TIER_COL[a.tier||0], shape = SHAPES[a.group] || SHAPES.base;
+  const ey = a.group === 'insieme' ? 56 : a.group === 'casa' ? 78 : 64, fs = a.group === 'casa' ? 36 : 40;
+  return `<svg class="bdg" width="${size}" height="${size}" viewBox="0 0 100 100" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs>
+    <g fill="url(#${id})" stroke="rgba(255,255,255,.75)" stroke-width="3">${shape}</g>
+    <g fill="none" stroke="rgba(0,0,0,.12)" stroke-width="2" transform="translate(8 8) scale(.84)">${shape}</g>
+    ${a.roomEmoji ? `<text x="76" y="30" font-size="22" text-anchor="middle">${a.roomEmoji}</text>` : ''}
+    <text x="50" y="${ey}" font-size="${fs}" text-anchor="middle">${a.emoji}</text></svg>`;
 }
 
 /* ---------------- interfaccia ---------------- */
@@ -466,14 +888,14 @@ function render(){
   const app = $('#app');
   if (!S.user) return app.innerHTML = viewLogin();
   if (S.error) return app.innerHTML = viewError();
-  if (!S.loaded.config || !S.loaded.tasks) return app.innerHTML = `<div class="login center"><div class="logo">🧽</div><p class="muted">Carico la casa…</p></div>`;
+  if (!S.loaded.config || !S.loaded.tasks) return app.innerHTML = `<div class="login center"><div class="logo">🧽</div><p class="muted">Carico ${APP_NAME}…</p></div>`;
   if (!me()) return app.innerHTML = viewOnboarding();
-  const views = {home:viewHome, todo:viewTodo, rank:viewRank, admin:viewAdmin};
+  const views = {home:viewHome, todo:viewTodo, prizes:viewPrizes, rank:viewRank, admin:viewAdmin};
   const v = views[S.tab] ? S.tab : 'home';
   const late = activeTasks().filter(t => taskState(t).status === 'late').length;
   app.innerHTML = `<div class="wrap">${views[v]()}</div>
   <nav class="tabs"><div class="in">
-    ${[['home','🏠','Casa'],['todo','🧹','Attività'],['rank','🏆','Classifica'],['admin','⚙️','Gestione']].map(([k,ic,l]) =>
+    ${[['home','🏠','Casa'],['todo','🧹','Attività'],['prizes','🏅','Premi'],['rank','🏆','Classifica'],['admin','⚙️','Gestione']].map(([k,ic,l]) =>
       `<button data-act="tab" data-v="${k}" class="${v===k?'on':''}"><span class="ic">${ic}</span>${k==='todo'&&late?`<span class="badge">${late}</span>`:''}${l}</button>`).join('')}
   </div></nav>`;
 }
@@ -483,7 +905,7 @@ function viewLogin(){
   const signup = S.authMode === 'signup';
   return `<div class="login">
     <div class="logo">🧽</div>
-    <h1 class="center" style="font-size:30px">Casa Pulita</h1>
+    <h1 class="center" style="font-size:30px">${APP_NAME}</h1>
     <p class="center muted">Il gioco delle pulizie di casa</p>
     <form id="authForm" class="card mt">
       <label>Email</label><input name="email" type="email" autocomplete="email" required>
@@ -518,26 +940,29 @@ function profileFields(p){
     <label>Colore</label><div class="swatches" data-pick="color">${COLORS.map(c => `<button type="button" data-val="${c}" class="${c===p.color?'on':''}" style="background:${c}"></button>`).join('')}</div>
     <input type="hidden" name="color" value="${esc(p.color)}">`;
 }
-
+function pauseBanner(){
+  const p = currentPause(); if (!p) return '';
+  return `<div class="banner-pause"><span style="font-size:24px">🏖️</span><div>Siete in vacanza fino al ${fmtDay(p.to)}${p.note?` · ${esc(p.note)}`:''}.<div class="tiny muted">Scadenze, stato della casa e boss sono in pausa.</div></div></div>`;
+}
 function viewHome(){
   const m = me(), now = Date.now(), key = monthKey(now);
   const hh = houseHealth(), lvl = HOUSE_LEVELS.find(l => hh.pct >= l[0]);
   const urgent = activeTasks().map(t => ({t, st:taskState(t)})).filter(x => x.st.kind==='timed' && x.st.status!=='ok')
     .sort((a,b) => a.st.dueAt - b.st.dueAt).slice(0,5);
-  const hc = hh.pct >= 75 ? 'var(--good)' : hh.pct >= 50 ? 'var(--warn)' : 'var(--bad)';
   const arc = 157.08, off = arc*(1 - hh.pct/100);
   return `
-  <div class="top"><div><div class="sub">Ciao ${esc(m.name)} ${esc(m.emoji)}</div><h1>${lvl[2]} Casa ${lvl[1].toLowerCase()}</h1></div></div>
+  <div class="top"><div><div class="sub">${APP_NAME} · ciao ${esc(m.name)} ${esc(m.emoji)}</div><h1>${lvl[2]} Casa ${lvl[1].toLowerCase()}</h1></div></div>
+  ${pauseBanner()}
   <div class="card">
     <h2>Stato della casa</h2>
     <div class="house">
       <div class="gauge"><svg viewBox="0 0 120 70"><path d="M10 62 A50 50 0 0 1 110 62" fill="none" stroke="var(--card2)" stroke-width="12" stroke-linecap="round"/>
-        <path d="M10 62 A50 50 0 0 1 110 62" fill="none" stroke="${hc}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${arc}" stroke-dashoffset="${off}" style="transition:stroke-dashoffset .8s"/></svg>
+        <path d="M10 62 A50 50 0 0 1 110 62" fill="none" stroke="${healthColor(hh.pct)}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${arc}" stroke-dashoffset="${off}" style="transition:stroke-dashoffset .8s"/></svg>
         <div class="val"><div class="num">${hh.pct}%</div></div></div>
-      <div class="catbars">${hh.cats.map(c => { const col = c.pct>=75?'var(--good)':c.pct>=50?'var(--warn)':'var(--bad)';
-        return `<div class="catbar"><div class="lbl"><span>${esc(c.name)}</span><span>${c.pct}%</span></div><div class="bar"><i style="width:${c.pct}%;background:${col}"></i></div></div>`; }).join('')}</div>
+      <div class="catbars">${hh.cats.map(c => `<div class="catbar"><div class="lbl"><span>${esc(c.name)}</span><span>${c.pct}%</span></div><div class="bar"><i style="width:${c.pct}%;background:${healthColor(c.pct)}"></i></div></div>`).join('')}</div>
     </div>
   </div>
+  <button class="card row" data-act="pick" style="width:100%;text-align:left;cursor:pointer"><span class="dice">🎲</span><div class="grow"><b style="font-size:16px">Non sai cosa fare?</b><div class="sub">Estrai un’attività a caso tra quelle in scadenza</div></div><span class="btn small primary">Estrai</span></button>
   ${bossCard(key, now)}
   ${duelCard(key, now)}
   <div class="sec">Da fare adesso <span class="c">${urgent.length ? '' : '· tutto in ordine 🎉'}</span></div>
@@ -547,36 +972,37 @@ function viewHome(){
 function bossCard(key, now){
   const b = bossInfo(key), d = monthData(key);
   const left = Math.max(0, b.hp - d.damage), pct = Math.max(0, left/b.hp*100), dead = left <= 0;
-  const f = Math.max(0, (now - b.start) / (endOfMonth(now) - b.start));
-  const expected = b.hp * f, diff = d.damage - expected;
+  const f = Math.min(1, effElapsed(b.start, now) / b.active);
+  const diff = d.damage - b.hp*f;
   const daysLeft = Math.ceil((endOfMonth(now) - now)/DAY);
-  const pace = dead ? '🏆 Sconfitto! Ogni punto in più è gloria.' :
-    Math.abs(diff) < 1 ? '⚖️ Siete in pari col ritmo giusto' : diff >= 0 ? `⚔️ Siete in vantaggio di ${fmt(diff)} HP sul ritmo giusto` : `⏳ Siete indietro di ${fmt(-diff)} HP sul ritmo giusto`;
+  const pace = dead ? '🏆 Sconfitto! Ogni punto in più è gloria.' : Math.abs(diff) < 1 ? '⚖️ Siete in pari col ritmo giusto' :
+    diff > 0 ? `⚔️ Siete in vantaggio di ${fmt(diff)} HP sul ritmo giusto` : `⏳ Siete indietro di ${fmt(-diff)} HP sul ritmo giusto`;
   return `<div class="card boss ${dead?'dead':''}">
     <div class="row"><div class="face">${b.emoji}</div>
-      <div class="grow"><div class="sub tiny" style="font-weight:800;letter-spacing:.04em;text-transform:uppercase">Boss di ${monthName(key).split(' ')[0].toLowerCase()}</div>
+      <div class="grow"><div class="sub tiny" style="font-weight:800;letter-spacing:.04em;text-transform:uppercase">Boss di ${monthShort(key)}</div>
       <h2 style="margin:2px 0 0">${esc(b.name)}</h2><div class="taunt">“${esc(dead ? 'Tornerò… il mese prossimo.' : b.taunt)}”</div></div></div>
     <div class="hp"><i style="width:${pct}%"></i></div>
     <div class="row between tiny" style="font-weight:800"><span>${fmt(left)} / ${b.hp} HP</span><span class="muted">${daysLeft} giorni rimasti</span></div>
-    <div class="row between mt" style="flex-wrap:wrap;gap:6px">${b.weak ? `<span class="pill weak">Punto debole: ${esc(b.weak)} · danni ×${settings().weaknessMult}</span>` : '<span></span>'}</div>
+    ${b.weak ? `<div class="mt"><span class="pill weak">Punto debole: ${esc(b.weak)} · danni ×${settings().weaknessMult}</span></div>` : ''}
     <div class="pace" style="color:${dead||diff>=0?'var(--good)':'var(--warn)'}">${pace}</div>
   </div>`;
 }
-function duelCard(key, now, big=false){
+function unlockedCount(uid){ return evaluate(uid).filter(a => a.done).length; }
+function duelCard(key, now){
   const d = monthData(key), ps = players();
   const daysLeft = Math.ceil((endOfMonth(now) - now)/DAY);
   if (ps.length < 2){
     const p = ps[0];
-    return `<div class="card"><h2>🏆 Classifica di ${monthName(key).split(' ')[0].toLowerCase()}</h2>
-      <div class="row">${avatar(p,44)}<div class="grow"><b>${esc(p.name)}</b><div class="sub">${fmt(d.scores[p.uid]||0)} punti</div></div></div>
+    return `<div class="card"><h2>🏆 Classifica di ${monthShort(key)}</h2>
+      <div class="row">${avatar(p,44)}<div class="grow"><b>${esc(p.name)}</b><div class="sub">${fmt(d.scores[p.uid]||0)} punti · 🏅 ${unlockedCount(p.uid)} premi</div></div></div>
       <p class="tiny muted">In attesa che si unisca l'altro giocatore: deve creare un account con la sua email.</p></div>`;
   }
   const [a,b] = ps; const sa = d.scores[a.uid]||0, sb = d.scores[b.uid]||0, tot = sa+sb;
   const lead = sa > sb ? a.uid : sb > sa ? b.uid : null;
-  const one = p => `<div class="pl">${lead===p.uid?'<div style="position:relative"><span class="crown" style="position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-8deg);font-size:22px">👑</span></div>':''}${avatar(p)}
+  const one = p => `<div class="pl"><div style="position:relative;height:0">${lead===p.uid?'<span style="position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-8deg);font-size:22px">👑</span>':''}</div>${avatar(p)}
       <div class="name">${esc(p.name)}</div><div class="num" style="color:${p.color}">${fmt(d.scores[p.uid]||0)}</div>
-      <div class="tiny muted">${d.counts[p.uid]||0} attività</div></div>`;
-  return `<div class="card"><h2>🏆 Sfida di ${monthName(key).split(' ')[0].toLowerCase()}</h2>
+      <div class="tiny muted">${d.counts[p.uid]||0} attività · 🏅 ${unlockedCount(p.uid)}</div></div>`;
+  return `<div class="card"><h2>🏆 Sfida di ${monthShort(key)}</h2>
     <div class="duel">${one(a)}<div class="vs">VS</div>${one(b)}</div>
     <div class="split">${tot ? `<i style="width:${sa/tot*100}%;background:${a.color}"></i><i style="width:${sb/tot*100}%;background:${b.color}"></i>` : ''}</div>
     <div class="row between tiny mt muted" style="font-weight:700"><span>💞 ${d.together} fatte insieme</span><span>Vincitore tra ${daysLeft} giorni</span></div>
@@ -584,45 +1010,79 @@ function duelCard(key, now, big=false){
 }
 function taskRow(t, st, boss){
   const col = {late:'var(--bad)', soon:'var(--warn)', ok:'var(--good)', free:'var(--muted)'}[st.status];
-  const val = t.points * st.mult;
+  const val = t.points * st.mult, paused = !!currentPause() && st.kind === 'timed';
   const last = t.lastDoneAt ? `${relDay(t.lastDoneAt)}${t.lastDoneBy?.length ? ' · '+t.lastDoneBy.map(u => pl(u).emoji).join('') : ''}` : '';
   return `<button class="task" data-act="open" data-id="${t.id}">
     <span class="dot" style="background:${col}"></span>
     <div class="grow"><div class="nm">${esc(t.name)}</div>
-      <div class="meta"><span class="pill ${st.status}">${dueLabel(st)}</span> ${S.cat==='Tutte' ? esc(t.category) : ''}${last ? ' · '+last : ''}${boss.weak===t.category?' · 💥':''}</div></div>
+      <div class="meta"><span class="pill ${paused ? 'pause' : st.status}">${paused ? '🏖️ ' : ''}${dueLabel(st)}</span> ${S.cat==='Tutte' ? esc(t.category) : ''}${last ? ' · '+last : ''}${boss.weak===t.category?' · 💥':''}</div></div>
     <div class="pts"><div class="num">${fmt(val)}</div><small>${st.mult>1?'🔥 ':''}${st.mult<1?'🐢 ':''}punti</small></div>
   </button>`;
 }
 function viewTodo(){
   const boss = bossInfo(monthKey(Date.now()));
-  const cats = categories();
   let list = activeTasks().map(t => ({t, st:taskState(t)}));
   if (S.cat !== 'Tutte') list = list.filter(x => x.t.category === S.cat);
   const groups = [['late','🔥 In ritardo'],['soon','⏰ In scadenza'],['free','♾️ Senza scadenza'],['ok','✅ A posto']];
   const sorter = (a,b) => a.st.kind==='free' ? a.t.name.localeCompare(b.t.name) : a.st.dueAt - b.st.dueAt;
-  return `<div class="top"><h1>Attività</h1><span class="sub">${activeTasks().length} in totale</span></div>
-    <div class="chips">${['Tutte',...cats].map(c => `<button class="chip ${S.cat===c?'on':''}" data-act="cat" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+  return `<div class="top"><h1>Attività</h1><button class="btn small" data-act="pick">🎲 Estrai</button></div>
+    ${pauseBanner()}
+    <div class="chips">${['Tutte',...categories()].map(c => `<button class="chip ${S.cat===c?'on':''}" data-act="cat" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>
     ${groups.map(([g,label]) => { const items = list.filter(x => x.st.status===g).sort(sorter); if (!items.length) return '';
       return `<div class="sec">${label} <span class="c">${items.length}</span></div>${items.map(x => taskRow(x.t, x.st, boss)).join('')}`; }).join('')}
     <p class="tiny muted center mt">🔥 = bonus ritardo · 🐢 = fatta da poco, vale meno · 💥 = punto debole del boss</p>`;
 }
+function viewPrizes(){
+  const ps = players();
+  const uid = S.achView && playersMap()[S.achView] ? S.achView : S.user.uid;
+  const all = evaluate(uid);
+  const done = all.filter(a => a.done).length;
+  const flt = S.achFilter;
+  const pass = a => flt==='all' || (flt==='done' && a.done) || (flt==='near' && !a.done && a.pct >= 50) || (flt==='todo' && !a.done);
+  const item = a => `<div class="ach ${a.done?'':'locked'}">${badge(a)}<div class="grow">
+      <div class="nm">${esc(a.name)}</div><div class="ds">${esc(a.desc)}${a.scope==='couple'?' · di coppia':''}</div>
+      ${a.done ? `<div class="when">✓ Sbloccato${a.when ? ' il '+new Date(a.when).toLocaleDateString('it-IT',{day:'numeric',month:'short',year:'numeric'}) : ''}</div>`
+        : `<div class="pg"><div class="bar"><i style="width:${a.pct}%;background:var(--accent)"></i></div><span>${a.pct}% · ${fmt(Math.min(a.value,a.target))}/${fmt(a.target)}</span></div>`}
+    </div></div>`;
+  const section = (key, label, items) => {
+    const shown = items.filter(pass); if (!shown.length) return '';
+    const open = S.open[key] ?? (key === 'base' || flt !== 'all');
+    const d = items.filter(a => a.done).length;
+    return `<div class="card"><button class="grp" data-act="toggle" data-k="${esc(key)}"><h2>${label}</h2><span class="pill">${d}/${items.length} ${open?'▾':'▸'}</span></button>
+      ${open ? `<div class="mt">${shown.map(item).join('')}</div>` : ''}</div>`;
+  };
+  let html = '';
+  for (const [g,label] of ACH_GROUPS){
+    const items = all.filter(a => a.group === g);
+    if (g === 'attivita'){
+      const secs = categories().map(cat => section('att-'+cat, `${CAT_EMOJI[cat]||'🏠'} ${esc(cat)}`, items.filter(a => a.room === cat))).join('');
+      if (secs) html += `<div class="sec">🧽 Attività <span class="c">${items.filter(a=>a.done).length}/${items.length}</span></div>` + secs;
+    } else html += section(g, label, items);
+  }
+  const p = pl(uid);
+  return `<div class="top"><h1>Premi</h1><span class="pill">🏅 ${done}/${all.length}</span></div>
+    <div class="card"><div class="row">${avatar(p, 44)}<div class="grow"><b>${esc(p.name)}</b><div class="sub">${done} premi sbloccati su ${all.length}</div></div></div>
+      <div class="bar mt" style="height:10px"><i style="width:${done/all.length*100}%;background:linear-gradient(90deg,var(--accent),#ffc54d)"></i></div>
+      ${ps.length > 1 ? `<div class="row mt" style="gap:6px">${ps.map(x => `<button class="chip ${x.uid===uid?'on':''}" data-act="achview" data-v="${x.uid}">${esc(x.emoji)} ${esc(x.name)}</button>`).join('')}</div>` : ''}
+    </div>
+    <div class="chips">${[['all','Tutti'],['near','Quasi fatti'],['todo','Da sbloccare'],['done','Sbloccati']].map(([k,l]) => `<button class="chip ${flt===k?'on':''}" data-act="achfilter" data-v="${k}">${l}</button>`).join('')}</div>
+    ${html || '<p class="muted center">Niente da mostrare con questo filtro.</p>'}`;
+}
 function viewRank(){
   const now = Date.now(), key = monthKey(now), d = monthData(key);
-  const prevKey = monthKey(startOfMonth(now)-1);
-  const log = [...S.completions].sort((a,b) => b.at - a.at).slice(0,40);
+  const log = [...S.completions].sort((a,b) => b.at - a.at).slice(0,60);
   const months = [...S.months].sort((a,b) => b.id.localeCompare(a.id));
   const wins = {}; months.forEach(m => { if (m.winner && m.winner!=='pari') wins[m.winner] = (wins[m.winner]||0)+1; });
-  const ps = players();
-  // punti per stanza nel mese
-  const byCat = {}; d.comps.forEach(c => { for (const [u,p] of Object.entries(c.awards||{})){ (byCat[c.category] ||= {})[u] = ((byCat[c.category]||{})[u]||0)+p; } });
+  const ps = players(), weekAgo = now - 7*DAY;
+  const byCat = {}; d.comps.forEach(c => { for (const [u,p] of Object.entries(c.awards||{})){ const r = byCat[c.category] ||= {}; r[u] = (r[u]||0)+p; } });
   return `<div class="top"><h1>Classifica</h1><span class="sub">${monthName(key)}</span></div>
     ${duelCard(key, now)}
-    ${ps.length ? `<div class="card"><h2>Punti per stanza</h2>${Object.keys(byCat).length ? categories().filter(c => byCat[c]).map(c => {
+    <div class="card"><h2>Punti per stanza</h2>${Object.keys(byCat).length ? categories().filter(c => byCat[c]).map(c => {
         const row = byCat[c], tot = Object.values(row).reduce((a,b)=>a+b,0);
         return `<div class="catbar" style="margin-bottom:8px"><div class="lbl"><span>${esc(c)}</span><span>${ps.map(p => `${esc(p.emoji)} ${fmt(row[p.uid]||0)}`).join(' · ')}</span></div>
-          <div class="split" style="margin-top:3px;height:8px">${ps.map(p => `<i style="width:${(row[p.uid]||0)/tot*100}%;background:${p.color}"></i>`).join('')}</div></div>`; }).join('') : '<p class="muted tiny">Ancora nessun punto questo mese.</p>'}</div>` : ''}
+          <div class="split" style="margin-top:3px;height:8px">${ps.map(p => `<i style="width:${(row[p.uid]||0)/tot*100}%;background:${p.color}"></i>`).join('')}</div></div>`; }).join('') : '<p class="muted tiny">Ancora nessun punto questo mese.</p>'}</div>
     <div class="card"><h2>📜 Albo d'oro</h2>
-      ${ps.length > 1 ? `<div class="row tiny muted" style="gap:14px;margin-bottom:6px;font-weight:800">${ps.map(p => `<span>${esc(p.emoji)} ${esc(p.name)}: ${wins[p.uid]||0} ${wins[p.uid]===1?'mese vinto':'mesi vinti'}</span>`).join('')}</div>` : ''}
+      ${ps.length > 1 ? `<div class="row tiny muted" style="gap:14px;margin-bottom:6px;font-weight:800;flex-wrap:wrap">${ps.map(p => `<span>${esc(p.emoji)} ${esc(p.name)}: ${wins[p.uid]||0} ${wins[p.uid]===1?'mese vinto':'mesi vinti'}</span>`).join('')}</div>` : ''}
       ${months.length ? months.map(m => { const w = m.winner==='pari' ? null : (playersMap()[m.winner] || m.players?.[m.winner]);
         return `<div class="fame"><div style="font-size:26px">${m.winner==='pari' ? '🤝' : esc(w?.emoji || '🏆')}</div>
           <div class="grow"><b>${monthName(m.id)}</b><div class="tiny muted">${m.winner==='pari' ? 'Pareggio' : 'Vince '+esc(w?.name||'?')} · ${Object.entries(m.scores||{}).map(([u,s]) => `${esc((playersMap()[u]||m.players?.[u]||{}).emoji||'')} ${fmt(s)}`).join(' – ')}</div></div>
@@ -630,22 +1090,33 @@ function viewRank(){
         : `<p class="muted tiny">Il primo vincitore verrà proclamato all'inizio del mese prossimo.</p>`}
     </div>
     <div class="card"><h2>🧾 Registro</h2>
-      ${log.length ? log.map(c => `<div class="log"><div class="em">${(c.byUids||[]).map(u => esc(pl(u).emoji)).join('')}</div>
-        <div class="grow"><div class="t">${esc(c.taskName)}</div><div class="d">${relDay(c.at)} ${new Date(c.at).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})} · ${Object.values(c.awards||{}).map(fmt).join(' + ')} pt${c.mult>1?' 🔥':''}${c.mult<1?' 🐢':''}</div></div>
-        <button class="btn small" data-act="askundo" data-id="${c.id}" title="Annulla">↩️</button></div>`).join('')
+      <p class="tiny muted" style="margin-top:-4px">Le voci degli ultimi 7 giorni si possono modificare o eliminare con ✏️.</p>
+      ${log.length ? log.map(c => `<div class="log"><div class="em">${isReset(c) ? '🔄' : (c.byUids||[]).map(u => esc(pl(u).emoji)).join('')}</div>
+        <div class="grow"><div class="t">${esc(c.taskName)}</div><div class="d">${relDay(c.at)} ${hhmm(c.at)} · ${isReset(c) ? 'azzerata, senza punti' : Object.values(c.awards||{}).map(fmt).join(' + ')+' pt'}${c.mult>1?' 🔥':''}${c.mult<1?' 🐢':''}</div></div>
+        ${c.at >= weekAgo ? `<button class="btn small" data-act="editlog" data-id="${c.id}" title="Modifica">✏️</button>` : ''}</div>`).join('')
         : '<p class="muted tiny">Ancora niente. Iniziate a pulire!</p>'}
-      <p class="tiny muted">Mostra questo mese e quello scorso (${monthName(prevKey).split(' ')[0].toLowerCase()}).</p>
     </div>`;
 }
 function viewAdmin(){
   const set = settings(), m = me(), cats = categories();
   const exp = expectedMonthly();
+  const ps = [...pauses()].sort((a,b) => b.from.localeCompare(a.from));
   return `<div class="top"><h1>Gestione</h1>${store.mode==='demo' ? '<span class="pill weak">DEMO</span>' : ''}</div>
     <div class="card"><div class="row">${avatar(m,48)}<div class="grow"><b>${esc(m.name)}</b><div class="tiny muted">${esc(S.user.email)}</div></div>
       <button class="btn small" data-act="editprofile">Modifica</button></div>
       <div class="row mt" style="gap:8px">
         ${store.mode==='demo' ? '<button class="btn small" data-act="switchuser">🔁 Cambia giocatore</button><button class="btn small danger" data-act="resetdemo">Azzera demo</button>' : '<button class="btn small" data-act="logout">Esci</button>'}
       </div></div>
+
+    <div class="card"><div class="row between"><h2 style="margin:0">🔄 Azzera attività</h2><button class="btn small primary" data-act="resetmodal">Apri</button></div>
+      <p class="tiny muted" style="margin-bottom:0">Segna una o più attività come fatte senza dare punti a nessuno: il conto alla rovescia riparte da zero.</p></div>
+
+    <div class="card"><div class="row between"><h2 style="margin:0">🏖️ Vacanze</h2><button class="btn small primary" data-act="addpause">+ Pausa</button></div>
+      <p class="tiny muted">Nei giorni di pausa le scadenze si fermano, la casa non si sporca e il boss diventa più debole in proporzione.</p>
+      ${ps.length ? ps.map(p => { const now = Date.now(), live = now >= keyToMs(p.from) && now < keyToMs(addDays(p.to,1)), past = now >= keyToMs(addDays(p.to,1));
+        return `<div class="log"><div class="em">${live?'🏝️':past?'🧳':'✈️'}</div><div class="grow"><div class="t">${fmtDay(p.from)} → ${fmtDay(p.to)}</div><div class="d">${live?'in corso':past?'passata':'in programma'}${p.note?' · '+esc(p.note):''}</div></div>
+          <button class="btn small danger" data-act="askdelpause" data-id="${esc(p.id)}">Elimina</button></div>`; }).join('') : '<p class="tiny muted" style="margin:0">Nessuna pausa.</p>'}
+    </div>
 
     <div class="card"><div class="row between"><h2 style="margin:0">Regole</h2><button class="btn small" data-act="editsettings">Modifica</button></div>
       <div class="kv"><span>Fatta insieme</span><b>${Math.round(set.coopShare*100)}% dei punti a testa</b></div>
@@ -663,20 +1134,20 @@ function viewAdmin(){
 
     <div class="card"><div class="row between"><h2 style="margin:0">Campi personalizzati</h2><button class="btn small" data-act="addfield">+ Campo</button></div>
       <p class="tiny muted">Campi in più per ogni attività (es. "Prodotto da usare", "Durata stimata").</p>
-      ${customFields().length ? customFields().map((f,i) => `<div class="log"><div class="grow"><div class="t">${esc(f.label)}</div><div class="d">${esc(f.key)} · ${({text:'testo',number:'numero',boolean:'sì/no'})[f.type]||f.type}</div></div>
-        <button class="btn small danger" data-act="delfield" data-i="${i}">Elimina</button></div>`).join('') : ''}
+      ${customFields().map((f,i) => `<div class="log"><div class="grow"><div class="t">${esc(f.label)}</div><div class="d">${esc(f.key)} · ${({text:'testo',number:'numero',boolean:'sì/no'})[f.type]||f.type}</div></div>
+        <button class="btn small danger" data-act="delfield" data-i="${i}">Elimina</button></div>`).join('')}
     </div>
 
     <div class="card"><h2>Dati</h2>
-      <p class="tiny muted">L'editor avanzato mostra attività, regole e campi in formato JSON: puoi modificare tutto a mano, anche aggiungere campi nuovi.</p>
+      <p class="tiny muted">L'editor avanzato mostra attività, regole, campi e vacanze in formato JSON: puoi modificare tutto a mano, anche aggiungere campi nuovi.</p>
       <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn small" data-act="json">{ } Editor avanzato</button><button class="btn small" data-act="export">⬇️ Scarica backup</button></div>
     </div>
-    <p class="tiny muted center">Casa Pulita · ${store.mode==='demo' ? 'modalità demo, dati solo su questo dispositivo' : 'dati sincronizzati con Firebase'}</p>`;
+    <p class="tiny muted center">${APP_NAME} · ${store.mode==='demo' ? 'modalità demo, dati solo su questo dispositivo' : 'dati sincronizzati con Firebase'}</p>`;
 }
 
 /* ---------------- finestre ---------------- */
 function openModal(html){ $('#modal').innerHTML = `<div class="scrim" data-act="scrim"><div class="sheet"><div class="grab"></div>${html}</div></div>`; }
-function closeModal(){ $('#modal').innerHTML = ''; }
+function closeModal(){ clearInterval(S._slotTimer); $('#modal').innerHTML = ''; }
 function openTask(id){
   const t = S.tasks.find(x => x.id === id); if (!t) return;
   const st = taskState(t), set = settings(), boss = bossInfo(monthKey(Date.now()));
@@ -694,22 +1165,81 @@ function openTask(id){
     <p class="sub center" style="margin:16px 0 0;font-weight:800">Chi l'ha fatta?</p>
     <div class="who">
       <button class="btn" data-act="done" data-id="${t.id}" data-who="me"><span class="e">${esc(m.emoji)}</span>${esc(m.name)}<span class="tiny muted">+${fmt(val)}</span></button>
-      <button class="btn" data-act="done" data-id="${t.id}" data-who="other" ${o?'':'disabled style="opacity:.4"'}><span class="e">${esc(o?.emoji||'❔')}</span>${esc(o?.name||'In attesa')}<span class="tiny muted">+${fmt(val)}</span></button>
-      <button class="btn primary both" data-act="done" data-id="${t.id}" data-who="both" ${o?'':'disabled style="opacity:.4"'}>💞 Insieme <span class="tiny" style="opacity:.85">+${fmt(val*set.coopShare)} a testa</span></button>
+      <button class="btn" data-act="done" data-id="${t.id}" data-who="other" ${o?'':'disabled'}><span class="e">${esc(o?.emoji||'❔')}</span>${esc(o?.name||'In attesa')}<span class="tiny muted">+${fmt(val)}</span></button>
+      <button class="btn primary wide" data-act="done" data-id="${t.id}" data-who="both" ${o?'':'disabled'}>💞 Insieme <span class="tiny" style="opacity:.85">+${fmt(val*set.coopShare)} a testa</span></button>
+      ${t.freqDays ? `<button class="btn wide small" data-act="resetone" data-id="${t.id}">🔄 Solo azzera, senza punti</button>` : ''}
     </div>`);
+}
+function resetModal(){
+  const today = dateKey(Date.now());
+  openModal(`<h2>🔄 Azzera attività</h2>
+    <p class="tiny muted">Spunta quelle già fatte: ripartono da zero senza dare punti a nessuno e senza danni al boss.</p>
+    <form id="resetForm">
+      <label>Fatte il</label><input type="date" name="day" value="${today}" max="${today}">
+      ${categories().map(c => { const ts = activeTasks().filter(t => t.category===c && t.freqDays); if (!ts.length) return '';
+        return `<div class="sec" style="margin-left:0">${esc(c)}</div>${ts.map(t => { const st = taskState(t);
+          return `<label class="check"><input type="checkbox" name="t" value="${t.id}"><span class="grow">${esc(t.name)}</span><span class="pill ${st.status}">${dueLabel(st)}</span></label>`; }).join('')}`; }).join('')}
+      <div style="position:sticky;bottom:-20px;background:var(--bg);padding:12px 0 4px"><button class="btn primary block">Azzera selezionate</button></div>
+    </form>`);
+}
+function editLog(id){
+  const c = S.completions.find(x => x.id === id); if (!c) return;
+  const o = other(), u = c.byUids || [];
+  const who = !u.length ? 'none' : u.length > 1 ? 'both' : u[0] === S.user.uid ? 'me' : 'other';
+  const opts = [['me', `${me().emoji} ${me().name}`], ...(o ? [['other', `${o.emoji} ${o.name}`], ['both','💞 Insieme']] : []), ['none','🔄 Nessuno (solo azzerata)']];
+  openModal(`<h2>Modifica registro</h2>
+    <form id="logForm" data-id="${esc(id)}">
+      <label>Attività</label><select name="task">${categories().map(cat => `<optgroup label="${esc(cat)}">${S.tasks.filter(t => t.category===cat).map(t => `<option value="${t.id}" ${t.id===c.taskId?'selected':''}>${esc(t.name)}</option>`).join('')}</optgroup>`).join('')}</select>
+      <label>Chi l'ha fatta</label><div class="seg">${opts.map(([k,l]) => `<label><input type="radio" name="who" value="${k}" ${k===who?'checked':''}><span>${esc(l)}</span></label>`).join('')}</div>
+      <label>Quando</label><input type="datetime-local" name="at" value="${localInput(c.at)}" max="${localInput(Date.now())}" min="${localInput(Date.now()-8*DAY)}">
+      <p class="tiny muted">I punti vengono ricalcolati. Il bonus o la penalità di tempo restano quelli del momento in cui era stata segnata.</p>
+      <button class="btn primary block mt">Salva</button>
+      <button type="button" class="btn danger block mt" data-act="askdellog" data-id="${esc(id)}">Elimina questa voce</button>
+    </form>`);
+}
+function pickTask(){
+  const cand = activeTasks().map(t => ({t, st:taskState(t)})).filter(x => x.st.kind === 'timed');
+  let pool = cand.filter(x => x.st.status !== 'ok');
+  if (pool.length < 3) pool = [...cand].sort((a,b) => a.st.dueAt - b.st.dueAt).slice(0, 8);
+  if (!pool.length) return toast('Nessuna attività da estrarre');
+  const weights = pool.map(x => x.t.points * x.st.mult * (x.st.status === 'late' ? 2 : 1) + 0.5);
+  let r = Math.random() * weights.reduce((a,b) => a+b, 0), pick = pool[0];
+  for (let i=0; i<pool.length; i++){ r -= weights[i]; if (r <= 0){ pick = pool[i]; break; } }
+  openModal(`<div class="center"><div class="dice" id="dice">🎲</div><h2 class="mt">L'estrazione dice…</h2>
+    <div class="slot" id="slot"></div><div id="slotMeta" class="sub" style="min-height:22px"></div>
+    <div class="row mt" style="gap:10px" id="slotBtns"></div></div>`);
+  let i = 0; const names = pool.map(x => x.t.name);
+  clearInterval(S._slotTimer);
+  S._slotTimer = setInterval(() => { const el = $('#slot'); if (!el) return clearInterval(S._slotTimer); el.textContent = names[i++ % names.length]; $('#dice').style.transform = `rotate(${i*47}deg)`; }, 70);
+  setTimeout(() => {
+    clearInterval(S._slotTimer); if (!$('#slot')) return;
+    $('#slot').textContent = pick.t.name; $('#dice').style.transform = '';
+    $('#slotMeta').innerHTML = `${esc(pick.t.category)} · <span class="pill ${pick.st.status}">${dueLabel(pick.st)}</span> · <b>${fmt(pick.t.points*pick.st.mult)} punti</b>`;
+    $('#slotBtns').innerHTML = `<button class="btn grow" data-act="pick">🎲 Un'altra</button><button class="btn primary grow" data-act="open" data-id="${pick.t.id}">Fatta! ✅</button>`;
+    burst(['🎲','✨'], 8);
+  }, 1300);
+}
+function addPause(){
+  const today = dateKey(Date.now());
+  openModal(`<h2>🏖️ Nuova pausa</h2><form id="pauseForm">
+    <label>Dal giorno</label><input type="date" name="from" value="${today}" required>
+    <label>Al giorno (compreso)</label><input type="date" name="to" value="${addDays(today,6)}" required>
+    <label>Nota (facoltativa)</label><input name="note" maxlength="40" placeholder="es. Mare in Puglia">
+    <p class="tiny" id="pauseErr" style="color:var(--bad)"></p>
+    <button class="btn primary block">Salva pausa</button></form>`);
 }
 function editTask(id){
   const t = S.tasks.find(x => x.id === id) || {name:'', category:S.cat!=='Tutte'?S.cat:(categories()[0]||''), freqDays:7, points:2, active:true, custom:{}};
   const f = t.freqDays, unit = !f ? 'none' : f%30===0 ? 'm' : f%7===0 ? 'w' : 'd';
   const n = !f ? '' : unit==='m' ? f/30 : unit==='w' ? f/7 : f;
-  const dt = t.lastDoneAt ? new Date(t.lastDoneAt - new Date().getTimezoneOffset()*60000).toISOString().slice(0,10) : '';
+  const dt = t.lastDoneAt ? dateKey(t.lastDoneAt) : '';
   openModal(`<h2>${id ? 'Modifica attività' : 'Nuova attività'}</h2>
     <form id="taskForm" data-id="${esc(id||'')}">
       <label>Nome</label><input name="name" value="${esc(t.name)}" required>
       <label>Stanza / categoria</label><input name="category" value="${esc(t.category)}" list="catlist" required>
       <datalist id="catlist">${categories().map(c => `<option value="${esc(c)}">`).join('')}</datalist>
       <label>Frequenza</label><div class="row"><input name="fn" type="number" min="1" step="1" value="${n}" style="width:90px" ${unit==='none'?'disabled':''}>
-        <select name="fu" data-act-change="fu"><option value="d" ${unit==='d'?'selected':''}>giorni</option><option value="w" ${unit==='w'?'selected':''}>settimane</option>
+        <select name="fu"><option value="d" ${unit==='d'?'selected':''}>giorni</option><option value="w" ${unit==='w'?'selected':''}>settimane</option>
         <option value="m" ${unit==='m'?'selected':''}>mesi</option><option value="none" ${unit==='none'?'selected':''}>senza scadenza</option></select></div>
       <label>Punti</label><input name="points" type="number" min="0" step="0.5" value="${t.points}" required>
       <label>Ultima volta fatta</label><input name="last" type="date" value="${dt}">
@@ -726,7 +1256,7 @@ function editSettings(){
   const fld = (k, label, hint, step, min, max) => `<label>${label}</label><input name="${k}" type="number" step="${step}" min="${min}" max="${max}" value="${s[k]}"><div class="tiny muted" style="margin-top:4px">${hint}</div>`;
   openModal(`<h2>Regole del gioco</h2><form id="settingsForm">
     ${fld('coopShare','Quota a testa se fatta insieme','0.6 = ognuno prende il 60% dei punti. 0.5 = metà a testa, 1 = punti pieni a entrambi.',0.05,0,1)}
-    ${fld('earlyThreshold','Soglia "troppo presto"','0.5 = se rifai un\'attività prima di metà periodo (e mancano più di 2 giorni alla scadenza) vale meno.',0.05,0,1)}
+    ${fld('earlyThreshold','Soglia "troppo presto"','0.4 = se rifai un\'attività prima del 40% del periodo (e mancano più di 2 giorni alla scadenza) vale meno.',0.05,0,1)}
     ${fld('earlyMult','Valore se troppo presto','0.5 = vale la metà.',0.05,0,1)}
     ${fld('overdueMaxBonus','Bonus ritardo massimo','0.5 = fino a +50%, che si raggiunge dopo un periodo intero di ritardo.',0.05,0,3)}
     ${fld('bossDifficulty','Difficoltà del boss','0.8 = per batterlo serve circa l\'80% delle pulizie previste nel mese.',0.05,0.1,3)}
@@ -745,12 +1275,10 @@ function confirmBox(text, act, id, label='Conferma'){
   openModal(`<h2>${esc(text)}</h2><div class="row mt" style="gap:10px"><button class="btn grow" data-act="close">Annulla</button><button class="btn primary grow" data-act="${act}" data-id="${esc(id)}">${esc(label)}</button></div>`);
 }
 function jsonEditor(){
-  const data = {
-    settings: settings(), customFields: customFields(),
-    tasks: [...S.tasks].sort((a,b)=>(a.order??999)-(b.order??999)).map(({id, ...rest}) => ({id, ...rest}))
-  };
+  const data = { settings: settings(), customFields: customFields(), pauses: pauses(),
+    tasks: [...S.tasks].sort((a,b)=>(a.order??999)-(b.order??999)).map(({id, ...rest}) => ({id, ...rest})) };
   openModal(`<h2>Editor avanzato</h2>
-    <p class="tiny muted">Modifica liberamente. Puoi aggiungere campi nuovi alle attività (finiscono nel database così come li scrivi). <b>freqDays</b> = giorni tra una volta e l'altra (null = senza scadenza), <b>lastDoneAt</b> = data in millisecondi.</p>
+    <p class="tiny muted">Modifica liberamente. Puoi aggiungere campi nuovi alle attività (finiscono nel database così come li scrivi). <b>freqDays</b> = giorni tra una volta e l'altra (null = senza scadenza), <b>lastDoneAt</b> = data in millisecondi, <b>pauses</b> = vacanze (date AAAA-MM-GG).</p>
     <textarea class="code" id="jsonText" spellcheck="false">${esc(JSON.stringify(data, null, 2))}</textarea>
     <div class="switch"><span class="tiny">Elimina le attività che non sono più nel testo</span><input type="checkbox" id="jsonDel"></div>
     <p class="tiny" id="jsonErr" style="color:var(--bad)"></p>
@@ -771,6 +1299,7 @@ function saveJson(){
   const cfg = {};
   if (data.settings) cfg.settings = data.settings;
   if (Array.isArray(data.customFields)) cfg.customFields = data.customFields;
+  if (Array.isArray(data.pauses)) cfg.pauses = data.pauses.map(p => ({id:p.id || store.newId('x'), from:p.from, to:p.to, note:p.note||''}));
   if (Object.keys(cfg).length) ops.push({type:'set', col:'config', id:'main', data:cfg, merge:true});
   store.commit(ops).then(() => toast('Salvato ✅')).catch(e => toast('⚠️ '+e.message));
   closeModal();
@@ -778,7 +1307,7 @@ function saveJson(){
 async function exportAll(){
   const data = await store.dumpAll();
   const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `casa-pulita-backup-${new Date().toISOString().slice(0,10)}.json`; a.click();
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `casa-ciompi-backup-${dateKey(Date.now())}.json`; a.click();
 }
 function toast(msg){
   const el = document.createElement('div'); el.className = 'toast'; el.textContent = msg; document.body.appendChild(el);
@@ -792,6 +1321,31 @@ function burst(emojis, n=14){
     b.appendChild(s); }
   document.body.appendChild(b); setTimeout(() => b.remove(), 1500);
 }
+function confetti(){
+  const b = document.createElement('div'); b.className = 'burst';
+  const cols = ['#e2673b','#ffc54d','#3b82c4','#2f9e74','#d6457a','#8e5bd0'];
+  for (let i=0; i<90; i++){ const s = document.createElement('i');
+    s.style.left = (Math.random()*100)+'%'; s.style.top = (-10 - Math.random()*30)+'vh'; s.style.background = cols[i % cols.length];
+    s.style.animationDelay = (Math.random()*0.6)+'s'; s.style.animationDuration = (2 + Math.random()*1.5)+'s';
+    s.style.setProperty('--dx', (Math.random()*120-60)+'px'); s.style.setProperty('--rot', (Math.random()*900-450)+'deg');
+    b.appendChild(s); }
+  document.body.appendChild(b); setTimeout(() => b.remove(), 4500);
+}
+function nextPrize(){
+  const a = S._prizeQueue.shift();
+  if (!a){ $('#prize').innerHTML = ''; return; }
+  $('#prize').innerHTML = `<div class="prize" data-act="closeprize"><div class="box">
+    <button class="x" data-act="closeprize" aria-label="Chiudi">✕</button>
+    <div class="k">🎉 Premio sbloccato!</div>
+    <div class="rays">${badge(a, 130)}</div>
+    <h2>${esc(a.name)}</h2>
+    <p class="sub" style="margin:0 0 8px">${esc(a.desc)}</p>
+    <span class="pill">${TIERS[a.tier||0]}${a.scope==='couple'?' · di coppia':''}</span>
+    ${a.more > 0 ? `<p class="tiny muted">…e altri ${a.more} premi! Li trovi nella pagina Premi.</p>` : ''}
+    <button class="btn primary block mt" data-act="closeprize">Evviva! 🥳</button>
+  </div></div>`;
+  confetti();
+}
 
 /* ---------------- eventi ---------------- */
 document.addEventListener('click', e => {
@@ -800,16 +1354,27 @@ document.addEventListener('click', e => {
     box.nextElementSibling.value = pick.dataset.val; return; }
   const el = e.target.closest('[data-act]'); if (!el) return;
   const act = el.dataset.act, id = el.dataset.id;
-  if (act === 'scrim' && e.target !== el) return;
+  if ((act === 'scrim' || act === 'closeprize') && e.target !== el && el.tagName !== 'BUTTON') return;
   switch (act){
     case 'tab': S.tab = el.dataset.v; location.hash = S.tab; render(); window.scrollTo(0,0); break;
     case 'cat': S.cat = el.dataset.v; render(); break;
     case 'open': openTask(id); break;
     case 'done': { const w = el.dataset.who, o = other();
       completeTask(id, w==='me' ? [S.user.uid] : w==='other' ? [o.uid] : [S.user.uid, o.uid]); break; }
-    case 'askundo': { const c = S.completions.find(x => x.id === id); confirmBox(`Annullare "${c?.taskName}"? I punti verranno tolti.`, 'undo', id, 'Annulla attività'); break; }
-    case 'undo': undoCompletion(id); break;
+    case 'resetone': resetTasks([id], Date.now()); break;
+    case 'resetmodal': resetModal(); break;
+    case 'pick': pickTask(); break;
+    case 'editlog': editLog(id); break;
+    case 'askdellog': { const c = S.completions.find(x => x.id === id); confirmBox(`Eliminare "${c?.taskName}"? ${c && !isReset(c) ? 'I punti verranno tolti.' : ''}`, 'dellog', id, 'Elimina'); break; }
+    case 'dellog': deleteCompletion(id); break;
     case 'scrim': case 'close': closeModal(); break;
+    case 'closeprize': nextPrize(); break;
+    case 'toggle': { const k = el.dataset.k; const cur = S.open[k] ?? (k === 'base' || S.achFilter !== 'all'); S.open[k] = !cur; render(); break; }
+    case 'achview': S.achView = el.dataset.v; render(); break;
+    case 'achfilter': S.achFilter = el.dataset.v; render(); break;
+    case 'addpause': addPause(); break;
+    case 'askdelpause': confirmBox('Eliminare questa pausa?', 'delpause', id, 'Elimina'); break;
+    case 'delpause': store.commit([{type:'set', col:'config', id:'main', data:{pauses:pauses().filter(p => p.id !== id)}, merge:true}]); closeModal(); break;
     case 'edittask': editTask(id); break;
     case 'askdeltask': confirmBox('Eliminare questa attività? Lo storico dei punti resta.', 'deltask', id, 'Elimina'); break;
     case 'deltask': store.commit([{type:'delete', col:'tasks', id}]); closeModal(); toast('Eliminata'); break;
@@ -854,6 +1419,18 @@ document.addEventListener('submit', e => {
     store.commit([{type:'set', col:'config', id:'main', data:{players:{[S.user.uid]:{name:v.name.trim(), emoji:v.emoji, color:v.color, email:S.user.email, joinedAt:existing?.joinedAt || Date.now()}}}, merge:true}]);
     closeModal();
   }
+  if (f.id === 'resetForm'){
+    const ids = new FormData(f).getAll('t'); if (!ids.length) return toast('Spunta almeno un’attività');
+    const at = v.day === dateKey(Date.now()) ? Date.now() : keyToMs(v.day) + 12*3600000;
+    resetTasks(ids, at);
+  }
+  if (f.id === 'logForm') saveCompletionEdit(f.dataset.id, f);
+  if (f.id === 'pauseForm'){
+    if (v.to < v.from) return $('#pauseErr').textContent = 'La data di fine è prima di quella di inizio.';
+    if (pauses().some(p => !(v.to < p.from || v.from > p.to))) return $('#pauseErr').textContent = 'Si sovrappone a un’altra pausa.';
+    store.commit([{type:'set', col:'config', id:'main', data:{pauses:[...pauses(), {id:store.newId('x'), from:v.from, to:v.to, note:(v.note||'').trim()}]}, merge:true}]);
+    closeModal(); toast('Pausa salvata 🏖️');
+  }
   if (f.id === 'taskForm'){
     const id = f.dataset.id || slug(v.name) + '-' + Math.random().toString(36).slice(2,6);
     const old = S.tasks.find(t => t.id === f.dataset.id) || {};
@@ -881,13 +1458,20 @@ document.addEventListener('submit', e => {
 window.addEventListener('hashchange', () => { const t = location.hash.slice(1); if (t && t !== S.tab){ S.tab = t; render(); } });
 
 /* ---------------- avvio ---------------- */
+function afterData(){
+  S._dataSig = (S._dataSig||0) + 1;
+  seedIfNeeded(); upgradeIfNeeded(); archiveIfNeeded(); snapshotDaily(); checkUnlocks();
+}
 function startSession(u){
   if (unsub) { unsub(); unsub = null; }
-  Object.assign(S, {user:u, tasks:[], completions:[], config:null, months:[], loaded:{}, server:{}, error:null, _seeding:false, _archived:false});
+  Object.assign(S, {user:u, tasks:[], completions:[], config:null, months:[], stats:[], achievements:[], daily:[], loaded:{}, server:{}, error:null,
+    _seeding:false, _archived:false, _upgrading:false, _shown:new Set(), _prizeQueue:[], achView:null});
+  $('#prize').innerHTML = '';
   if (u){
-    const since = startOfMonth(startOfMonth(Date.now()) - 1);
-    const mk = name => (data, fromCache) => { S[name] = data; S.loaded[name] = true; if (!fromCache) S.server[name] = true; seedIfNeeded(); archiveIfNeeded(); render(); };
-    unsub = store.subscribe(since, {tasks:mk('tasks'), completions:mk('completions'), config:mk('config'), months:mk('months')},
+    const now = Date.now();
+    const q = {since: startOfMonth(startOfMonth(now) - 1), dailySince: dateKey(now - 400*DAY)};
+    const mk = name => (data, fromCache) => { S[name] = data; S.loaded[name] = true; if (!fromCache) S.server[name] = true; afterData(); render(); };
+    unsub = store.subscribe(q, Object.fromEntries([...COLS,'config'].map(c => [c, mk(c)])),
       err => { S.error = err.code === 'permission-denied' ? 'denied' : err.message; render(); });
   }
   render();
@@ -896,8 +1480,9 @@ function startSession(u){
   try { store = FIREBASE_CONFIG ? await firebaseStore(FIREBASE_CONFIG) : demoStore(); }
   catch(e){ $('#app').innerHTML = `<div class="login center"><div class="logo">📡</div><h2>Non riesco a collegarmi</h2><p class="muted">Controlla la connessione e riapri l'app.</p><p class="tiny muted">${esc(e.message)}</p></div>`; return; }
   store.onAuth(startSession);
-  setInterval(() => { if (!$('#modal').innerHTML) render(); }, 60000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden && !$('#modal').innerHTML) render(); });
+  const tick = () => { if (!$('#modal').innerHTML){ snapshotDaily(); render(); } };
+  setInterval(tick, 60000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 </script>
