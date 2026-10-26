@@ -406,6 +406,7 @@ async function firebaseStore(cfg){
       }
     },
     newId: col => F.doc(F.collection(db,col)).id,
+    allCompletions: async () => list(await F.getDocs(F.collection(db,'completions'))),
     async dumpAll(){
       const out = {};
       for (const c of [...COLS,'config']) out[c] = list(await F.getDocs(F.collection(db,c)));
@@ -440,6 +441,7 @@ function demoStore(){
       save(); emit();
     },
     newId: () => Math.random().toString(36).slice(2,12)+Date.now().toString(36),
+    allCompletions: async () => arr('completions'),
     async dumpAll(){ return Object.fromEntries([...COLS,'config'].map(c => [c, arr(c)])); }
   };
 }
@@ -846,17 +848,27 @@ function achCtx(uid){
 }
 function evaluate(uid){
   const ctx = achCtx(uid), stored = S.achievements.find(a => a.id === uid)?.unlocked || {};
-  return achievementsList().map(a => { const v = Math.max(0, a.metric(ctx) || 0); const done = !!stored[a.id] || v >= a.target;
-    return {...a, value:v, done, when:stored[a.id] || null, pct: done ? 100 : Math.min(99, Math.floor(v/a.target*100))}; });
+  // un premio è sbloccato solo se i dati attuali lo giustificano: se un'attività viene annullata o eliminata, il premio torna bloccato
+  return achievementsList().map(a => { const v = Math.max(0, a.metric(ctx) || 0); const done = v >= a.target;
+    return {...a, value:v, done, when: done ? (stored[a.id] || null) : null, pct: done ? 100 : Math.min(99, Math.floor(v/a.target*100))}; });
 }
 function checkUnlocks(){
   const need = ['config','tasks','completions','stats','achievements','months','daily'];
   if (!need.every(k => S.server[k]) || !me()) return;
-  const fresh = evaluate(S.user.uid).filter(a => a.done && !a.when && !S._shown.has(a.id));
-  if (!fresh.length) return;
+  const uid = S.user.uid, stored = S.achievements.find(a => a.id === uid)?.unlocked || {};
+  const res = evaluate(uid), byId = Object.fromEntries(res.map(a => [a.id, a]));
+  const revoked = Object.keys(stored).filter(id => !byId[id]?.done);
+  const fresh = res.filter(a => a.done && !a.when && !S._shown.has(a.id));
+  revoked.forEach(id => S._shown.delete(id));
+  if (!fresh.length && !revoked.length) return;
   fresh.forEach(a => S._shown.add(a.id));
   const now = Date.now();
-  store.commit([{type:'set', col:'achievements', id:S.user.uid, data:{unlocked:Object.fromEntries(fresh.map(a => [a.id, now]))}, merge:true}]).catch(()=>{});
+  const unlocked = Object.fromEntries(Object.entries(stored).filter(([id]) => !revoked.includes(id)));
+  fresh.forEach(a => unlocked[a.id] = now);
+  // riscrive l'elenco completo, così i premi non più validi vengono tolti
+  store.commit([{type:'set', col:'achievements', id:uid, data:{unlocked}}]).catch(()=>{});
+  if (revoked.length && !fresh.length) toast(`🏅 ${revoked.length === 1 ? 'Un premio è tornato bloccato' : revoked.length+' premi sono tornati bloccati'} dopo la modifica`);
+  if (!fresh.length) return;
   const show = [...fresh].sort((a,b) => b.tier - a.tier).slice(0, 3);
   S._prizeQueue.push(...show.map((a,i) => ({...a, more: i === show.length-1 ? fresh.length - show.length : 0})));
   if (!$('#prize').innerHTML) setTimeout(nextPrize, 700);
@@ -1143,7 +1155,8 @@ function viewAdmin(){
 
     <div class="card"><h2>Dati</h2>
       <p class="tiny muted">L'editor avanzato mostra attività, regole, campi e vacanze in formato JSON: puoi modificare tutto a mano, anche aggiungere campi nuovi.</p>
-      <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn small" data-act="json">{ } Editor avanzato</button><button class="btn small" data-act="export">⬇️ Scarica backup</button></div>
+      <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn small" data-act="json">{ } Editor avanzato</button><button class="btn small" data-act="export">⬇️ Scarica backup</button><button class="btn small" data-act="recalc">🔁 Ricalcola premi</button></div>
+      <p class="tiny muted" style="margin-bottom:0">"Ricalcola premi" ricostruisce tutte le statistiche dal registro completo: utile se qualcosa sembra non tornare.</p>
     </div>
     <p class="tiny muted center">${APP_NAME} · ${store.mode==='demo' ? 'modalità demo, dati solo su questo dispositivo' : 'dati sincronizzati con Firebase'}</p>`;
 }
@@ -1312,6 +1325,16 @@ function saveJson(){
   store.commit(ops).then(() => toast('Salvato ✅')).catch(e => toast('⚠️ '+e.message));
   closeModal();
 }
+async function recalcStats(){
+  try {
+    toast('Ricalcolo in corso…');
+    const all = await store.allCompletions();
+    const acc = {}; for (const c of all) for (const [uid,d] of Object.entries(statDelta(c))) acc[uid] = deepAdd(acc[uid], d);
+    const uids = new Set([...Object.keys(acc), ...S.stats.map(s => s.id)]);
+    await store.commit([...uids].map(uid => ({type:'set', col:'stats', id:uid, data:acc[uid] || {total:0}})));
+    toast(`✅ Statistiche ricalcolate da ${all.length} attività`);
+  } catch(e){ toast('⚠️ '+e.message); }
+}
 async function exportAll(){
   const data = await store.dumpAll();
   const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
@@ -1394,6 +1417,7 @@ document.addEventListener('click', e => {
     case 'json': jsonEditor(); break;
     case 'savejson': saveJson(); break;
     case 'export': exportAll(); break;
+    case 'recalc': recalcStats(); break;
     case 'logout': store.signOut(); break;
     case 'switchuser': store.switchUser(); break;
     case 'resetdemo': store.resetDemo(); break;
