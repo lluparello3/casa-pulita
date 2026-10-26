@@ -1198,13 +1198,18 @@ function editLog(id){
     </form>`);
 }
 function pickTask(){
-  const cand = activeTasks().map(t => ({t, st:taskState(t)})).filter(x => x.st.kind === 'timed');
-  let pool = cand.filter(x => x.st.status !== 'ok');
-  if (pool.length < 3) pool = [...cand].sort((a,b) => a.st.dueAt - b.st.dueAt).slice(0, 8);
+  // pesca tra le attività che scadono entro 3 settimane (o già in ritardo), escluse quelle fatte oggi o ieri
+  const now = Date.now(), yesterday = dayStart(now) - DAY;
+  let pool = activeTasks().map(t => ({t, st:taskState(t)}))
+    .filter(x => x.st.kind === 'timed' && x.st.dueAt <= now + 21*DAY && !(x.t.lastDoneAt && x.t.lastDoneAt >= yesterday));
+  if (pool.length > 1) pool = pool.filter(x => x.t.id !== S._lastPick);
   if (!pool.length) return toast('Nessuna attività da estrarre');
-  const weights = pool.map(x => x.t.points * x.st.mult * (x.st.status === 'late' ? 2 : 1) + 0.5);
+  // più è vicina la scadenza (o più è in ritardo) e più punti vale, più è probabile
+  const weights = pool.map(x => { const left = (x.st.dueAt - now)/DAY;
+    return (x.t.points * x.st.mult + 1) * (left <= 0 ? 3 : 1 + 2*(1 - Math.min(left, 21)/21)); });
   let r = Math.random() * weights.reduce((a,b) => a+b, 0), pick = pool[0];
   for (let i=0; i<pool.length; i++){ r -= weights[i]; if (r <= 0){ pick = pool[i]; break; } }
+  S._lastPick = pick.t.id;
   openModal(`<div class="center"><div class="dice" id="dice">🎲</div><h2 class="mt">L'estrazione dice…</h2>
     <div class="slot" id="slot"></div><div id="slotMeta" class="sub" style="min-height:22px"></div>
     <div class="row mt" style="gap:10px" id="slotBtns"></div></div>`);
