@@ -379,14 +379,17 @@ async function firebaseStore(cfg){
     reset: e => AU.sendPasswordResetEmail(auth,e),
     signOut: () => AU.signOut(auth),
     subscribe(q, h, onErr){
+      // includeMetadataChanges: serve per sapere quando i dati arrivano davvero dal server
+      // (senza, una raccolta vuota resta "da cache" per sempre e i premi non partono)
+      const on = (ref, fn) => F.onSnapshot(ref, {includeMetadataChanges:true}, s => fn(s, s.metadata.fromCache), onErr);
       const u = [
-        F.onSnapshot(F.collection(db,'tasks'), s => h.tasks(list(s), s.metadata.fromCache), onErr),
-        F.onSnapshot(F.query(F.collection(db,'completions'), F.where('at','>=',q.since)), s => h.completions(list(s), s.metadata.fromCache), onErr),
-        F.onSnapshot(F.doc(db,'config','main'), s => h.config(s.exists() ? s.data() : null, s.metadata.fromCache), onErr),
-        F.onSnapshot(F.collection(db,'months'), s => h.months(list(s), s.metadata.fromCache), onErr),
-        F.onSnapshot(F.collection(db,'stats'), s => h.stats(list(s), s.metadata.fromCache), onErr),
-        F.onSnapshot(F.collection(db,'achievements'), s => h.achievements(list(s), s.metadata.fromCache), onErr),
-        F.onSnapshot(F.query(F.collection(db,'daily'), F.where('date','>=',q.dailySince)), s => h.daily(list(s), s.metadata.fromCache), onErr)
+        on(F.collection(db,'tasks'), (s,c) => h.tasks(list(s), c)),
+        on(F.query(F.collection(db,'completions'), F.where('at','>=',q.since)), (s,c) => h.completions(list(s), c)),
+        on(F.doc(db,'config','main'), (s,c) => h.config(s.exists() ? s.data() : null, c)),
+        on(F.collection(db,'months'), (s,c) => h.months(list(s), c)),
+        on(F.collection(db,'stats'), (s,c) => h.stats(list(s), c)),
+        on(F.collection(db,'achievements'), (s,c) => h.achievements(list(s), c)),
+        on(F.query(F.collection(db,'daily'), F.where('date','>=',q.dailySince)), (s,c) => h.daily(list(s), c))
       ];
       return () => u.forEach(f => f());
     },
@@ -1476,6 +1479,8 @@ function startSession(u){
     const now = Date.now();
     const q = {since: startOfMonth(startOfMonth(now) - 1), dailySince: dateKey(now - 400*DAY)};
     const mk = name => (data, fromCache) => { S[name] = data; S.loaded[name] = true; if (!fromCache) S.server[name] = true; afterData(); render(); };
+    clearTimeout(S._srvTimer);
+    S._srvTimer = setTimeout(() => { if (S.user === u && S.loaded.config){ [...COLS,'config'].forEach(c => { if (S.loaded[c]) S.server[c] = true; }); afterData(); render(); } }, 10000);
     unsub = store.subscribe(q, Object.fromEntries([...COLS,'config'].map(c => [c, mk(c)])),
       err => { S.error = err.code === 'permission-denied' ? 'denied' : err.message; render(); });
   }
