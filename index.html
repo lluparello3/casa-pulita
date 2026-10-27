@@ -109,6 +109,13 @@ nav.tabs .badge{position:absolute;left:calc(50% + 6px);top:0;background:var(--ba
 .chips::-webkit-scrollbar{display:none}
 .chip{padding:7px 12px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-weight:800;font-size:13px;white-space:nowrap}
 .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.search{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 10px;margin-bottom:8px;font-size:14px}
+.search input{border:0;background:transparent;padding:9px 0;font-size:15px}
+.search input:focus{outline:none}
+.search:focus-within{border-color:var(--accent)}
+.search input::-webkit-search-cancel-button{display:none}
+.search .clr{color:var(--muted);font-size:14px;padding:6px}
+.search .clr.hide{visibility:hidden}
 
 .log{display:flex;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
 .log:first-child{border-top:0}
@@ -208,7 +215,7 @@ const DEFAULT_SETTINGS = {
   earlyThreshold: 0.4,   // prima del 40% del periodo = "troppo presto"...
   earlyMult: 0.5,        // ...e vale la metà (solo se mancano più di 2 giorni alla scadenza)
   overdueMaxBonus: 0.5,  // bonus ritardo fino a +50% (dopo un periodo intero di ritardo)
-  bossDifficulty: 0.8,   // vita del boss = 80% dei punti "attesi" nel mese
+  bossDifficulty: 1.0,   // vita del boss = 100% dei punti "attesi" nel mese
   weaknessMult: 1.5      // danno x1.5 sulla stanza debole del boss
 };
 const COLORS = ['#e2673b','#3b82c4','#8e5bd0','#2f9e74','#d6457a','#c9921a'];
@@ -526,7 +533,8 @@ function monthData(key){
   }
   return {comps, scores, counts, together, damage};
 }
-function expectedMonthly(){ return activeTasks().filter(t => t.freqDays).reduce((s,t) => s + t.points*30/t.freqDays, 0); }
+// punti attesi in un mese: le attività senza scadenza (es. cucinare) contano come una volta al giorno
+function expectedMonthly(){ return activeTasks().reduce((s,t) => s + t.points*30/(t.freqDays || 1), 0); }
 function bossOf(key){ const [y,m] = key.split('-').map(Number); return BOSSES[bossIndex(y, m)]; }
 function bossInfo(key){
   const b = bossOf(key);
@@ -651,7 +659,7 @@ function seedIfNeeded(){
     ops.push({type:'set', col:'tasks', id:slug(name), data:{name, category:cat, freqDays:freq, points:pts, active:true, order:order++,
       lastDoneAt: freq ? startLast(freq, now) : null, lastDoneBy:null, custom:{}, noEarlyMalus: NO_MALUS.includes(slug(name))}});
   }
-  ops.push({type:'set', col:'config', id:'main', data:{seeded:true, startV2:true, malusV3:true, startedAt:now, settings:DEFAULT_SETTINGS, customFields:[], pauses:[]}, merge:true});
+  ops.push({type:'set', col:'config', id:'main', data:{seeded:true, startV2:true, malusV3:true, bossV4:true, startedAt:now, settings:DEFAULT_SETTINGS, customFields:[], pauses:[]}, merge:true});
   store.commit(ops).catch(err => { S._seeding = false; toast('⚠️ '+err.message); });
 }
 /* per i database creati con la prima versione */
@@ -659,6 +667,13 @@ function seedIfNeeded(){
 const NO_MALUS = ['caricare-e-far-partire-lavastoviglie','scaricare-lavastoviglie','avviare-la-lavatrice','stendere','ritirare-e-piegare',
   'meal-prep','cucinare-pasto-principale','buttare-umido','buttare-indifferenziata','buttare-carta','buttare-vetro','buttare-plastica',
   'spesa-frutta-e-verdura','annaffiare-piante','svuotare-il-cestino','cambiare-gli-asciugamani'];
+function migrateBoss(){
+  if (!(S.server.config && S.server.tasks) || !S.config?.seeded || S.config?.bossV4 || S._bossmig) return;
+  S._bossmig = true;
+  const data = {bossV4:true};
+  if (settings().bossDifficulty === 0.8) data.settings = {...settings(), bossDifficulty:1.0};
+  store.commit([{type:'set', col:'config', id:'main', data, merge:true}]).catch(() => { S._bossmig = false; });
+}
 function migrateMalus(){
   if (!(S.server.config && S.server.tasks) || !S.config?.seeded || S.config?.malusV3 || S._malus) return;
   S._malus = true;
@@ -923,11 +938,13 @@ function render(){
   const views = {home:viewHome, todo:viewTodo, prizes:viewPrizes, rank:viewRank, admin:viewAdmin};
   const v = views[S.tab] ? S.tab : 'home';
   const late = activeTasks().filter(t => taskState(t).status === 'late').length;
+  const hadFocus = document.activeElement?.id === 'taskSearch', caret = hadFocus ? document.activeElement.selectionStart : 0;
   app.innerHTML = `<div class="wrap">${views[v]()}</div>
   <nav class="tabs"><div class="in">
     ${[['home','🏠','Casa'],['todo','🧹','Attività'],['prizes','🏅','Premi'],['rank','🏆','Classifica'],['admin','⚙️','Gestione']].map(([k,ic,l]) =>
       `<button data-act="tab" data-v="${k}" class="${v===k?'on':''}"><span class="ic">${ic}</span>${k==='todo'&&late?`<span class="badge">${late}</span>`:''}${l}</button>`).join('')}
   </div></nav>`;
+  if (hadFocus){ const i = $('#taskSearch'); if (i){ i.focus(); try { i.setSelectionRange(caret, caret); } catch(e){} } }
 }
 function avatar(p, size=56){ return `<div class="av" style="width:${size}px;height:${size}px;font-size:${size*.54}px;background:color-mix(in srgb,${p.color} 22%,transparent);border:2.5px solid ${p.color}">${esc(p.emoji)}</div>`; }
 
@@ -1049,17 +1066,26 @@ function taskRow(t, st, boss){
     <div class="pts"><div class="num">${fmt(val)}</div><small>${st.mult>1?'🔥 ':''}${st.mult<1?'🐢 ':''}punti</small></div>
   </button>`;
 }
-function viewTodo(){
+const norm = x => String(x||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+function todoList(){
   const boss = bossInfo(monthKey(Date.now()));
   let list = activeTasks().map(t => ({t, st:taskState(t)}));
   if (S.cat !== 'Tutte') list = list.filter(x => x.t.category === S.cat);
+  const q = norm(S.q).trim();
+  if (q) { const words = q.split(/\s+/); list = list.filter(x => { const h = norm(x.t.name+' '+x.t.category); return words.every(w => h.includes(w)); }); }
   const groups = [['late','🔥 In ritardo'],['soon','⏰ In scadenza'],['free','♾️ Senza scadenza'],['ok','✅ A posto']];
   const sorter = (a,b) => a.st.kind==='free' ? a.t.name.localeCompare(b.t.name) : a.st.dueAt - b.st.dueAt;
+  if (!list.length) return `<p class="muted center mt">Nessuna attività trovata${q ? ` per «${esc(S.q.trim())}»` : ''}.</p>`;
+  return groups.map(([g,label]) => { const items = list.filter(x => x.st.status===g).sort(sorter); if (!items.length) return '';
+      return `<div class="sec">${label} <span class="c">${items.length}</span></div>${items.map(x => taskRow(x.t, x.st, boss)).join('')}`; }).join('');
+}
+function viewTodo(){
   return `<div class="top"><h1>Attività</h1><button class="btn small" data-act="pick">🎲 Estrai</button></div>
     ${pauseBanner()}
+    <div class="search"><span aria-hidden="true">🔍</span><input id="taskSearch" type="search" placeholder="Cerca un'attività…" value="${esc(S.q||'')}" autocomplete="off" enterkeyhint="search">
+      <button class="clr ${S.q ? '' : 'hide'}" data-act="clearsearch" aria-label="Cancella ricerca">✕</button></div>
     <div class="chips">${['Tutte',...categories()].map(c => `<button class="chip ${S.cat===c?'on':''}" data-act="cat" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>
-    ${groups.map(([g,label]) => { const items = list.filter(x => x.st.status===g).sort(sorter); if (!items.length) return '';
-      return `<div class="sec">${label} <span class="c">${items.length}</span></div>${items.map(x => taskRow(x.t, x.st, boss)).join('')}`; }).join('')}
+    <div id="todoList">${todoList()}</div>
     <p class="tiny muted center mt">🔥 = bonus ritardo · 🐢 = fatta da poco, vale meno · 💥 = punto debole del boss</p>`;
 }
 function viewPrizes(){
@@ -1296,7 +1322,7 @@ function editSettings(){
     ${fld('earlyThreshold','Soglia "troppo presto"','0.4 = se rifai un\'attività prima del 40% del periodo (e mancano più di 2 giorni alla scadenza) vale meno.',0.05,0,1)}
     ${fld('earlyMult','Valore se troppo presto','0.5 = vale la metà.',0.05,0,1)}
     ${fld('overdueMaxBonus','Bonus ritardo massimo','0.5 = fino a +50%, che si raggiunge dopo un periodo intero di ritardo.',0.05,0,3)}
-    ${fld('bossDifficulty','Difficoltà del boss','0.8 = per batterlo serve circa l\'80% delle pulizie previste nel mese.',0.05,0.1,3)}
+    ${fld('bossDifficulty','Difficoltà del boss','1 = la vita è pari ai punti previsti nel mese: serve circa l\'85-90% delle pulizie (bonus e punto debole aiutano).',0.05,0.1,3)}
     ${fld('weaknessMult','Danno sul punto debole','1.5 = le attività della stanza debole fanno il 50% di danni in più.',0.1,1,5)}
     <button class="btn primary block mt">Salva</button>
     <button type="button" class="btn block mt" data-act="defaults">Ripristina valori consigliati</button></form>`);
@@ -1405,6 +1431,7 @@ document.addEventListener('click', e => {
   switch (act){
     case 'tab': S.tab = el.dataset.v; location.hash = S.tab; render(); window.scrollTo(0,0); break;
     case 'cat': S.cat = el.dataset.v; render(); break;
+    case 'clearsearch': S.q = ''; render(); $('#taskSearch')?.focus(); break;
     case 'open': openTask(id); break;
     case 'done': { const w = el.dataset.who, o = other();
       completeTask(id, w==='me' ? [S.user.uid] : w==='other' ? [o.uid] : [S.user.uid, o.uid]); break; }
@@ -1441,6 +1468,10 @@ document.addEventListener('click', e => {
     case 'reset': { const email = $('#authForm [name=email]').value; if (!email){ S.authMsg = 'Scrivi prima la tua email.'; render(); break; }
       store.reset(email).then(() => toast('Ti ho mandato una email per reimpostarla 📬')).catch(err => { S.authMsg = authError(err); render(); }); break; }
   }
+});
+document.addEventListener('input', e => {
+  if (e.target.id === 'taskSearch'){ S.q = e.target.value; const l = $('#todoList'); if (l) l.innerHTML = todoList();
+    e.target.parentElement.querySelector('.clr').classList.toggle('hide', !S.q); }
 });
 document.addEventListener('change', e => {
   if (e.target.name === 'fu'){ const n = e.target.form.fn; n.disabled = e.target.value === 'none'; if (!n.disabled && !n.value) n.value = 1; }
@@ -1508,7 +1539,7 @@ window.addEventListener('hashchange', () => { const t = location.hash.slice(1); 
 /* ---------------- avvio ---------------- */
 function afterData(){
   S._dataSig = (S._dataSig||0) + 1;
-  seedIfNeeded(); upgradeIfNeeded(); migrateMalus(); archiveIfNeeded(); snapshotDaily(); checkUnlocks();
+  seedIfNeeded(); upgradeIfNeeded(); migrateMalus(); migrateBoss(); archiveIfNeeded(); snapshotDaily(); checkUnlocks();
 }
 function startSession(u){
   if (unsub) { unsub(); unsub = null; }
